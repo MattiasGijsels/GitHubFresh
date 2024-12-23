@@ -19,7 +19,7 @@ namespace Examen.Advanced.Csharp.Contracts.Models
         [StringLength(100)]
         public string Street { get; set; } = string.Empty;
 
-        [Required]
+        [Required]//check if this one will fuck up the seeding !!
         public ZipCode Zipcode { get; set; } = new ZipCode();
 
         [StringLength(50)]
