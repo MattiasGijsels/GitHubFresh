@@ -8,6 +8,26 @@ namespace Examen.Advanced.Csharp
 {
     public static class DataSeeder
     {
+        public static void SeedFromCsv(PersonenDbContext dbContext, string filePath)
+        {
+            // Check if the table already has data
+            if (!dbContext.ZipCode.Any())
+            {
+                // Use the CsvParser to parse the CSV file
+                var zipCodes = CsvParser.CsvParser.ParseCsvToZipCode(filePath);
+
+                // Add parsed data to the database
+                dbContext.ZipCode.AddRange(zipCodes);
+
+                // Save changes to the database
+                dbContext.SaveChanges();
+                Console.WriteLine("CSV data seeded successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Database already contains ZipCode data.");
+            }
+        }
         public static void SeedDummyData(PersonenDbContext dbContext)
         {
             if (!dbContext.Person.Any()) // Checks if data already exists

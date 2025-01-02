@@ -1,4 +1,4 @@
-﻿using CsvParserExample;
+﻿using CsvParser;
 using Examen.Advanced.Csharp.Contracts.Models;
 using Examen.Advanced.Csharp.Database.Context;
 using Microsoft.EntityFrameworkCore;
@@ -30,25 +30,29 @@ namespace Examen.Advanced.Csharp
             // Optionally, test connection or migrations
             _dbContext.Database.EnsureCreated();
 
+            // Seed ZipCode data from CSV
+            string csvFilePath = "C:\\Users\\matti\\Source\\Repos\\GitHubFresh\\Examen.Advanced.Csharp\\Src\\postcodes.csv"; // Path to your CSV file
+            DataSeeder.SeedFromCsv(_dbContext, csvFilePath);
+
             DataSeeder.SeedDummyData(_dbContext);
 
-            string filePath = "C:\\Users\\matti\\Source\\Repos\\GitHubFresh\\Examen.Advanced.Csharp\\Src\\postcodes.csv"; // Path to your CSV file
+            //string filePath = "C:\\Users\\matti\\Source\\Repos\\GitHubFresh\\Examen.Advanced.Csharp\\Src\\postcodes.csv"; // Path to your CSV file
 
-            try
-            {
-                // Use the CsvParser to parse the file
-                List<ZipCode> zipCodes = CsvParser.ParseCsvToZipCode(filePath);
+            //try
+            //{
+            //    // Use the CsvParser to parse the file
+            //    List<ZipCode> zipCodes = CsvParser.ParseCsvToZipCode(filePath);
 
-                // Print the parsed data
-                foreach (var zipCode in zipCodes)
-                {
-                    Console.WriteLine($"City: {zipCode.CityName}, Postal Code: {zipCode.PostalCode}, NIS: {zipCode.NisCode}, Province: {zipCode.Province}, Country: {zipCode.Country}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
+            //    // Print the parsed data
+            //    foreach (var zipCode in zipCodes)
+            //    {
+            //        Console.WriteLine($"City: {zipCode.CityName}, Postal Code: {zipCode.PostalCode}, NIS: {zipCode.NisCode}, Province: {zipCode.Province}, Country: {zipCode.Country}");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"An error occurred: {ex.Message}");
+            //}
         }
     }
 }
