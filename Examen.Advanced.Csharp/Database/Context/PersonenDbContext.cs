@@ -21,11 +21,5 @@ namespace Examen.Advanced.Csharp.Database.Context
         {
 
         }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //  string connectionStr = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=ExamenAdvancedCsharp;Integrated Security=True";
-        //    optionsBuilder.UseSqlServer(connectionStr);
-        //}
     }
 }

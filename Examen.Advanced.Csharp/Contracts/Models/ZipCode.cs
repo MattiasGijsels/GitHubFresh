@@ -34,9 +34,12 @@ namespace Examen.Advanced.Csharp.Contracts.Models
         [Required]
         [StringLength(1)]
         public byte Main { get; set; } = default!;
+        // use bool ???
 
-        [StringLength(50)]
-        public string? Country { get; set; } = "Belgium"; // Default country is "Belgium"
+        //[StringLength(50)]
+        //public string? Country { get; set; } = "Belgium"; // Default country is "Belgium"
+        // restrictive for further use and already declared in Address model
+        // adjust setter to cast incomming values to the correct property objecttype ex: string, int bool..
 
 
     }

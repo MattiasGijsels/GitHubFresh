@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Examen.Advanced.Csharp.Contracts.Models;
 
-namespace CsvParser
+namespace Examen.Advanced.Csharp.CsvReader
 {
     public static class CsvParser
     {
 
-        public static List<ZipCode> ParseCsvToZipCode(string filePath)
+        public static List<ZipCode> ParseCsvToZipCode(string filePath)//questiones
+
         {
             var zipCodes = new List<ZipCode>();
 
@@ -30,18 +31,18 @@ namespace CsvParser
                 {
                     var columns = line.Split(',');
 
-                    // Trim and handle special cases for each column
                     var cityName = columns[0].Trim().Trim('\''); // Remove quotes
                     var postalCode = columns[1].Trim();
                     var nisCode = columns[2].Trim();
                     var province = columns[3].Trim();
-                    var main = byte.Parse(columns[4].Trim());
+                    var main = byte.Parse(columns[4].Trim());//change to bool
 
                     // Validate required fields before adding
                     if (!string.IsNullOrWhiteSpace(cityName) &&
                         !string.IsNullOrWhiteSpace(postalCode) &&
                         !string.IsNullOrWhiteSpace(nisCode) &&
                         !string.IsNullOrWhiteSpace(province))
+                        //based on the presumption the csv is perfect, in future make it more dynamic
                     {
                         zipCodes.Add(new ZipCode
                         {
@@ -49,8 +50,7 @@ namespace CsvParser
                             PostalCode = postalCode,
                             NisCode = nisCode,
                             Province = province,
-                            Main = main,
-                            Country = "Belgium" // Default value
+                            Main = main
                         });
                     }
                     else
