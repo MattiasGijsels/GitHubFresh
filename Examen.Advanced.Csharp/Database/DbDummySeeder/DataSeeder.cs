@@ -10,7 +10,7 @@ namespace Examen.Advanced.Csharp
     {
         public static void SeedDummyData(PersonenDbContext dbContext)
         {
-            if (!dbContext.Person.Any()) // Check if data already exists
+            if (!dbContext.Person.Any()) // Checks if data already exists
             {
                 var persons = new List<Person>
                 {

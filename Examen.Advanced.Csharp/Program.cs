@@ -1,4 +1,6 @@
-﻿using Examen.Advanced.Csharp.Database.Context;
+﻿using CsvParserExample;
+using Examen.Advanced.Csharp.Contracts.Models;
+using Examen.Advanced.Csharp.Database.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -29,6 +31,24 @@ namespace Examen.Advanced.Csharp
             _dbContext.Database.EnsureCreated();
 
             DataSeeder.SeedDummyData(_dbContext);
+
+            string filePath = "C:\\Users\\matti\\Source\\Repos\\GitHubFresh\\Examen.Advanced.Csharp\\Src\\postcodes.csv"; // Path to your CSV file
+
+            try
+            {
+                // Use the CsvParser to parse the file
+                List<ZipCode> zipCodes = CsvParser.ParseCsvToZipCode(filePath);
+
+                // Print the parsed data
+                foreach (var zipCode in zipCodes)
+                {
+                    Console.WriteLine($"City: {zipCode.CityName}, Postal Code: {zipCode.PostalCode}, NIS: {zipCode.NisCode}, Province: {zipCode.Province}, Country: {zipCode.Country}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
     }
 }
