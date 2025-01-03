@@ -159,9 +159,143 @@ namespace Examen.Advanced.Csharp
                         LastName = "Power",
                         DateOfBirth = new DateTime(1988, 5, 19),
                         Address = new Address { Street = "456 Walnut Rd.", Country = "Belgium", Zipcode = zipCodes[604]}
+                    },      
+                    new Person
+                    {
+                        FirstName = "Chris",
+                        LastName = "P. Bacon",
+                        DateOfBirth = new DateTime(1987, 3, 14),
+                        Address = new Address { Street = "123 Pancake Blvd.", Country = "Belgium", Zipcode = zipCodes[145] }
                     },
+                    new Person
+                    {
+                        FirstName = "Barry",
+                        LastName = "Cade",
+                        DateOfBirth = new DateTime(1991, 6, 23),
+                        Address = new Address { Street = "456 Barrier St.", Country = "Belgium", Zipcode = zipCodes[623] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Minnie",
+                        LastName = "Van",
+                        DateOfBirth = new DateTime(1994, 8, 7),
+                        Address = new Address { Street = "789 Compact Dr.", Country = "Belgium", Zipcode = zipCodes[999] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Anita",
+                        LastName = "Bath",
+                        DateOfBirth = new DateTime(1985, 11, 20),
+                        Address = new Address { Street = "321 Tub Ln.", Country = "Belgium", Zipcode = zipCodes[487] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Luke",
+                        LastName = "Warm",
+                        DateOfBirth = new DateTime(1993, 2, 12),
+                        Address = new Address { Street = "654 Tepid Rd.", Country = "Belgium", Zipcode = zipCodes[784] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Justin",
+                        LastName = "Time",
+                        DateOfBirth = new DateTime(1990, 7, 30),
+                        Address = new Address { Street = "567 Deadline Blvd.", Country = "Belgium", Zipcode = zipCodes[234] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Carrie",
+                        LastName = "Oaky",
+                        DateOfBirth = new DateTime(1982, 4, 15),
+                        Address = new Address { Street = "789 Karaoke Ct.", Country = "Belgium", Zipcode = zipCodes[1234] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Sue",
+                        LastName = "Permarket",
+                        DateOfBirth = new DateTime(1995, 5, 22),
+                        Address = new Address { Street = "567 Grocery Blvd.", Country = "Belgium", Zipcode = zipCodes[765] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Tim",
+                        LastName = "Buktu",
+                        DateOfBirth = new DateTime(1989, 10, 5),
+                        Address = new Address { Street = "321 Desert Rd.", Country = "Belgium", Zipcode = zipCodes[400] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Ima",
+                        LastName = "Goner",
+                        DateOfBirth = new DateTime(1984, 8, 18),
+                        Address = new Address { Street = "456 Danger Ln.", Country = "Belgium", Zipcode = zipCodes[1290] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Will",
+                        LastName = "Power",
+                        DateOfBirth = new DateTime(1992, 11, 3),
+                        Address = new Address { Street = "654 Determination Dr.", Country = "Belgium", Zipcode = zipCodes[859] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Pat",
+                        LastName = "Myback",
+                        DateOfBirth = new DateTime(1981, 12, 9),
+                        Address = new Address { Street = "789 Reward Blvd.", Country = "Belgium", Zipcode = zipCodes[578] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Al",
+                        LastName = "Dente",
+                        DateOfBirth = new DateTime(1990, 1, 21),
+                        Address = new Address { Street = "321 Pasta Ave.", Country = "Belgium", Zipcode = zipCodes[1347] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Elle",
+                        LastName = "Ementary",
+                        DateOfBirth = new DateTime(1994, 2, 14),
+                        Address = new Address { Street = "567 Basics Blvd.", Country = "Belgium", Zipcode = zipCodes[622] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Mark",
+                        LastName = "Mywords",
+                        DateOfBirth = new DateTime(1986, 3, 28),
+                        Address = new Address { Street = "456 Quotes Ln.", Country = "Belgium", Zipcode = zipCodes[315] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Phil",
+                        LastName = "Harmonic",
+                        DateOfBirth = new DateTime(1991, 9, 7),
+                        Address = new Address { Street = "123 Symphony Ct.", Country = "Belgium", Zipcode = zipCodes[982] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Bea",
+                        LastName = "Positive",
+                        DateOfBirth = new DateTime(1988, 6, 12),
+                        Address = new Address { Street = "789 Optimism Rd.", Country = "Belgium", Zipcode = zipCodes[1203] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Gus",
+                        LastName = "Tavo",
+                        DateOfBirth = new DateTime(1993, 7, 19),
+                        Address = new Address { Street = "321 Flavor Blvd.", Country = "Belgium", Zipcode = zipCodes[432] }
+                    },
+                    new Person
+                    {
+                        FirstName = "Holly",
+                        LastName = "Wood",
+                        DateOfBirth = new DateTime(1987, 4, 25),
+                        Address = new Address { Street = "567 Fame Ct.", Country = "Belgium", Zipcode = zipCodes[134] }
+                    }
+        
                 };
-
+        
                 // Add the dummy data to the DbContext
                 dbContext.Person.AddRange(persons);
 
