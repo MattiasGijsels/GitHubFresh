@@ -38,20 +38,24 @@ namespace Examen.Advanced.Csharp
                 Console.WriteLine("Deleting existing database...");
                 _dbContext.Database.EnsureDeleted();
                 Console.WriteLine("Database deleted.");
+                Console.WriteLine("Creating a new database...");
+                _dbContext.Database.EnsureCreated();
+                Console.WriteLine("Database created.");
+                // Seed ZipCode data from CSV
+                string csvFilePath = @"C:\Users\matti\Source\Repos\GitHubFresh\Examen.Advanced.Csharp\Src\postcodes.csv"; // Path to your CSV file
+                List<ZipCode>? zipCodes = DataSeeder.SeedFromCsv(_dbContext, csvFilePath);
+
+                DataSeeder.SeedDummyData(_dbContext, zipCodes);
+
+                Console.WriteLine("Data seeding completed. All systems are go. Let's get started!");
             }
-
-            // Ensure the database is created
-            Console.WriteLine("Creating a new database...");
-            _dbContext.Database.EnsureCreated();
-            Console.WriteLine("Database created.");
-
-            // Seed ZipCode data from CSV
-            string csvFilePath = @"C:\Users\matti\Source\Repos\GitHubFresh\Examen.Advanced.Csharp\Src\postcodes.csv"; // Path to your CSV file
-            List<ZipCode>? zipCodes = DataSeeder.SeedFromCsv(_dbContext, csvFilePath);
-
-            DataSeeder.SeedDummyData(_dbContext, zipCodes);
-
-            Console.WriteLine("Data seeding completed. All systems are go. Let's get started!");
+            else if (userInput == "no")
+            {
+                Console.WriteLine("Checking if a database currently exists...");
+                _dbContext.Database.EnsureCreated();
+                Console.WriteLine("Using existing database which is fully seeded.");
+                Console.WriteLine("All systems are go, Lets blow up the deathstar.");
+            }
 
             var personService = new PersonService(_dbContext);
 
@@ -68,31 +72,8 @@ namespace Examen.Advanced.Csharp
                 switch (choice)
                 {
                     case "1":
+                        PrintPersonData(_dbContext);
 
-
-                        Console.Write("Enter the firstname or lastname to search: ");//how did I fuck up?
-                        string? name = Console.ReadLine();
-                        var results = personService.SearchPersons(name);
-
-                        if (results.Count > 0)
-                        {
-                            Console.WriteLine("Search Results:");
-                            foreach (var person in results)
-                            {
-                                Console.WriteLine($"Name: {person.FirstName} {person.LastName}");
-                                Console.WriteLine($"Date of birth: {person.DateOfBirth}");
-                                Console.WriteLine($"Adress: {person.Address.Street}");
-                                Console.WriteLine($"CityName: {person.Address.Zipcode.CityName}");
-                                Console.WriteLine($"PostalCode: {person.Address.Zipcode.PostalCode}");
-                                Console.WriteLine($"NisCode: {person.Address.Zipcode.NisCode}");
-                                Console.WriteLine($"Province: {person.Address.Zipcode.Province}");
-                                Console.WriteLine($"MainCity: {person.Address.Zipcode.Main}");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("No persons found with that name.");
-                        }
                         break;
 
                     case "2":
@@ -113,26 +94,38 @@ namespace Examen.Advanced.Csharp
                         break;
                 }
             }
-            //public List<Person> SearchName()
-            //{
-            //Console.Write("Enter the firstname or lastname to search: ");//how did I fuck up?
-            //string? name = Console.ReadLine();
-            //var results = personService.SearchPersons(name);
-
-            //if (results.Count > 0)
-            //{
-            //    Console.WriteLine("Search Results:");
-            //    foreach (var person in results)
-            //    {
-            //        Console.WriteLine($"Name: {person.FirstName} {person.LastName}");
-            //    }
-            //}
-            //else
-            //{
-            //    Console.WriteLine("No persons found with that name.");
-            //}
-        
-
+        }
+        private static void PrintPersonData(PersonsDbContext context)
+        {
+            var personService = new PersonService(context);
+            Console.Write("Enter the firstname or lastname to search: ");//how did I fuck up?
+            string? name = Console.ReadLine();
+            var results = personService.SearchPersons(name);
+            PrintResults(results);
+        }
+        private static void PrintResults(List<Person> results)
+        {
+            if (results.Count > 0)
+            {
+                Console.WriteLine("Search Results:");
+                Console.WriteLine("----------------------------------------------------");
+                foreach (var person in results)
+                {
+                    Console.WriteLine($"Name: {person.FirstName} {person.LastName}");
+                    Console.WriteLine($"Date of birth: {person.DateOfBirth}");
+                    Console.WriteLine($"Adress: {person.Address.Street}");
+                    Console.WriteLine($"CityName: {person.Address.Zipcode.CityName}");
+                    Console.WriteLine($"PostalCode: {person.Address.Zipcode.PostalCode}");
+                    Console.WriteLine($"NisCode: {person.Address.Zipcode.NisCode}");
+                    Console.WriteLine($"Province: {person.Address.Zipcode.Province}");
+                    Console.WriteLine($"MainCity: {person.Address.Zipcode.Main}");
+                    Console.WriteLine("----------------------------------------------------");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No persons found with that name.");
+            }
         }
     }
 }
