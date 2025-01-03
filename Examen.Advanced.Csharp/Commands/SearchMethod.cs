@@ -25,7 +25,10 @@ public class PersonService
         {
             // Apply filters for both firstName and lastName if provided
             return _context.Person
-                .Where(p => p.FirstName.ToLower().Contains(name.ToLower())||p.LastName.ToLower().Contains(name.ToLower())).ToList(); // Filter by last name or first name
+                .Where(
+                p => p.FirstName.ToLower().Contains(name.ToLower())||
+                p.LastName.ToLower().Contains(name.ToLower()) ||
+                p.Address.Street.ToLower().Contains(name.ToLower())).ToList(); // Filter by last name or first name or by street data
         }
     }
 }
