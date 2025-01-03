@@ -33,7 +33,7 @@ namespace Examen.Advanced.Csharp.Contracts.Models
 
         [Required]
         [StringLength(1)]
-        public byte Main { get; set; } = default!;
+        public bool Main { get; set; } = default!;
         // use bool ???
 
         //[StringLength(50)]

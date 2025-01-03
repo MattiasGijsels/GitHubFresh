@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Examen.Advanced.Csharp.Contracts.Models;
 
@@ -8,9 +7,7 @@ namespace Examen.Advanced.Csharp.CsvReader
 {
     public static class CsvParser
     {
-
-        public static List<ZipCode> ParseCsvToZipCode(string filePath)//questiones
-
+        public static List<ZipCode> ParseCsvToZipCode(string filePath)
         {
             var zipCodes = new List<ZipCode>();
 
@@ -18,54 +15,57 @@ namespace Examen.Advanced.Csharp.CsvReader
             if (!File.Exists(filePath))
                 throw new FileNotFoundException($"File not found: {filePath}");
 
-            // Read the file line by line
-            var lines = File.ReadLines(filePath).ToList();
-
-            if (lines.Count <= 1)
-                throw new Exception("The CSV file is empty or missing headers.");
-
-            // Assume the first line contains headers and skip it
-            foreach (var line in lines.Skip(1)) // Skip header
+            // Open the file using a FileStream
+            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            using (var reader = new StreamReader(fileStream))
             {
-                try
+                // Read the header line and skip it
+                var headerLine = reader.ReadLine();
+                if (headerLine == null)
+                    throw new Exception("The CSV file is empty or missing headers.");
+
+                // Read each line
+                string? line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    var columns = line.Split(',');
-
-                    var cityName = columns[0].Trim().Trim('\''); // Remove quotes
-                    var postalCode = columns[1].Trim();
-                    var nisCode = columns[2].Trim();
-                    var province = columns[3].Trim();
-                    var main = byte.Parse(columns[4].Trim());//change to bool
-
-                    // Validate required fields before adding
-                    if (!string.IsNullOrWhiteSpace(cityName) &&
-                        !string.IsNullOrWhiteSpace(postalCode) &&
-                        !string.IsNullOrWhiteSpace(nisCode) &&
-                        !string.IsNullOrWhiteSpace(province))
-                        //based on the presumption the csv is perfect, in future make it more dynamic
+                    try
                     {
-                        zipCodes.Add(new ZipCode
+                        var columns = line.Split(',');
+
+                        var cityName = columns[0].Trim().Trim('\''); // Removes the quotes
+                        var postalCode = columns[1].Trim();
+                        var nisCode = columns[2].Trim();
+                        var province = columns[3].Trim();
+                        var main = columns[4].Trim() == "1";
+
+                        // Validate required fields before adding
+                        if (!string.IsNullOrWhiteSpace(cityName) &&
+                            !string.IsNullOrWhiteSpace(postalCode) &&
+                            !string.IsNullOrWhiteSpace(nisCode) &&
+                            !string.IsNullOrWhiteSpace(province))
                         {
-                            CityName = cityName,
-                            PostalCode = postalCode,
-                            NisCode = nisCode,
-                            Province = province,
-                            Main = main
-                        });
+                            zipCodes.Add(new ZipCode
+                            {
+                                CityName = cityName,
+                                PostalCode = postalCode,
+                                NisCode = nisCode,
+                                Province = province,
+                                Main = main
+                            });
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Skipping invalid row: {line}");
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Console.WriteLine($"Skipping invalid row: {line}");
+                        Console.WriteLine($"Error processing row: {line}. Exception: {ex.Message}");
                     }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error processing row: {line}. Exception: {ex.Message}");
                 }
             }
 
             return zipCodes;
         }
-
-    }
+    }// presuming our csv file is perfect without any corrupt data
 }
