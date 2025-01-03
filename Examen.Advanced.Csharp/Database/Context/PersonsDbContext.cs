@@ -9,15 +9,15 @@ using Microsoft.IdentityModel.Protocols;
 
 namespace Examen.Advanced.Csharp.Database.Context
 {
-    public class PersonenDbContext :DbContext
+    public class PersonsDbContext :DbContext
     {
         public  DbSet<Address> Addresses { get; set; }
         public  DbSet<Person> Person { get; set; }
         public  DbSet<ZipCode> ZipCode { get; set; }
 
-        public PersonenDbContext(DbContextOptions<PersonenDbContext> options) : base(options) { }
+        public PersonsDbContext(DbContextOptions<PersonsDbContext> options) : base(options) { }
 
-        public PersonenDbContext()
+        public PersonsDbContext()
         {
 
         }

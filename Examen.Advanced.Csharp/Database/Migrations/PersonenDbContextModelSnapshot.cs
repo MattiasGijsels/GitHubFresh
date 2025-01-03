@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Examen.Advanced.Csharp.Migrations
 {
-    [DbContext(typeof(PersonenDbContext))]
+    [DbContext(typeof(PersonsDbContext))]
     partial class PersonenDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

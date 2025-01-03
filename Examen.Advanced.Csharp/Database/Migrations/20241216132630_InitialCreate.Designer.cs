@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Examen.Advanced.Csharp.Migrations
 {
-    [DbContext(typeof(PersonenDbContext))]
+    [DbContext(typeof(PersonsDbContext))]
     [Migration("20241216132630_InitialCreate")]
     partial class InitialCreate
     {

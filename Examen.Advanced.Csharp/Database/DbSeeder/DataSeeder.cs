@@ -9,7 +9,7 @@ namespace Examen.Advanced.Csharp
 {
     public static class DataSeeder
     {
-        public static List<ZipCode>? SeedFromCsv(PersonenDbContext dbContext, string filePath)
+        public static List<ZipCode>? SeedFromCsv(PersonsDbContext dbContext, string filePath)
         {
             // Check if the table already has data
             if (!dbContext.ZipCode.Any())
@@ -33,7 +33,7 @@ namespace Examen.Advanced.Csharp
             return null;
         }
         //add zipCodeId to dummy seed data
-        public static void SeedDummyData(PersonenDbContext dbContext, List<ZipCode> zipCodes)
+        public static void SeedDummyData(PersonsDbContext dbContext, List<ZipCode> zipCodes)
         {
             if (!dbContext.Person.Any()) // Checks if data already exists
             {
