@@ -24,8 +24,8 @@ namespace Examen.Advanced.Csharp.Contracts.Models
         public string PostalCode { get; set; } = string.Empty;
 
         //[Required]
-        //[Range(1000,9993)]
-        //public int PostalCode { get; set; } = string.Empty;
+        //[Range(1000, 9993)]
+        //public int PostalCode { get; set; }
 
         [Required]
         [StringLength(5)]
