@@ -13,7 +13,7 @@ namespace Examen.Advanced.Csharp
     {
         static void Main(string[] args)
         {
-            DbInitializer.Initialize(args);
+            DbInitializer.Initialize();
         }
     }
 }

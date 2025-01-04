@@ -13,7 +13,7 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
 {
     public class DbInitializer
     {
-        public static void Initialize(string[] args)
+        public static void Initialize()
         {
             // Build the configuration
             var configuration = new ConfigurationBuilder()
