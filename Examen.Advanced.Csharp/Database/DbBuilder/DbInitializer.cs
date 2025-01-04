@@ -100,7 +100,7 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                         break;
                     case "3":
 
-                         AddPersonAsync(personRepository).Wait();
+                        PersonRepository.AddPersonAsync(personRepository).Wait();
 
                         break;
 
@@ -121,69 +121,6 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                 }
             }
         }
-        static async Task AddPersonAsync(IPersonRepository repository)
-        {
-            Console.Write("Enter first name: ");
-            string? firstName = Console.ReadLine();
-
-            Console.Write("Enter last name: ");
-            string? lastName = Console.ReadLine();
-
-            Console.Write("Enter date of birth (yyyy-mm-dd): ");
-            DateTime dateOfBirth;
-            while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth))
-            {
-                Console.Write("Invalid date. Please enter again (yyyy-mm-dd): ");
-            }
-
-            Console.Write("Enter street address: ");
-            string? street = Console.ReadLine();
-
-            Console.Write("Enter Country: ");
-            string? country = Console.ReadLine();
-
-            Console.Write("Enter City name: ");
-            string? cityname = Console.ReadLine();
-
-            Console.Write("Enter postalcode: ");
-            string? postalcode = Console.ReadLine();
-
-            Console.Write("Enter niscode : ");
-            string? niscode = Console.ReadLine();
-
-            Console.Write("Enter province : ");
-            string? province = Console.ReadLine();
-
-            Console.Write("Enter main (true/false): ");
-            string? main = Console.ReadLine()?.ToLower();
-            bool isMain = main == "true";
-
-
-            var newPerson = new Person
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = firstName,
-                LastName = lastName,
-                DateOfBirth = dateOfBirth,
-                Address = new Address
-                {
-                    Street = street,
-                    Country = country,
-                    ZipCode = new ZipCode
-                    {
-                        CityName = cityname,
-                        PostalCode = postalcode,
-                        NisCode = niscode,
-                        Province = province,
-                        Main = isMain
-                    }
-                }
-            };
-
-            await repository.AddPersonAsync(newPerson);
-            Console.WriteLine("Person added successfully!");
-        }
-
         private static void PrintPersonData(PersonsDbContext context)
         {
             var personService = new PersonService(context);

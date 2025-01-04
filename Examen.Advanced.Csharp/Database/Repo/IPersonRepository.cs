@@ -7,7 +7,7 @@ namespace Examen.Advanced.Csharp.Database.Repositories
     public interface IPersonRepository
     {
         Task<List<Person>> GetAllPersonsAsync(); // Get all non-deleted persons
-        Task AddPersonAsync(Person person);     // Add a new person
+        Task AddPersonToDbAsync(Person person);     // Add a new person
         Task DeletePersonAsync(string id);      // Soft delete a person
     }
 }
