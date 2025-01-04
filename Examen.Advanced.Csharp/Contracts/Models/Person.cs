@@ -39,6 +39,5 @@ namespace Examen.Advanced.Csharp.Contracts.Models
             LastName = lastName;
             DateOfBirth = dateOfBirth;
         }
-        // full constructor ?? questiones
     }
 }

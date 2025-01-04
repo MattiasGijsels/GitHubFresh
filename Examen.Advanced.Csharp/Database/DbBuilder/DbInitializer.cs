@@ -1,5 +1,6 @@
 ﻿using Examen.Advanced.Csharp.Contracts.Models;
 using Examen.Advanced.Csharp.Database.Context;
+using Examen.Advanced.Csharp.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -29,10 +30,11 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
 
             // Instantiate the DbContext
             using var _dbContext = new PersonsDbContext(optionsBuilder.Options);
-            string userInput = "";
+            string? userInput = "";
 
             while (!(userInput == "yes" || userInput == "no"))
             {
+                Console.WriteLine("Hello Dear user");
                 Console.WriteLine("Do you want to reset the database? (yes/no)");
                 userInput = Console.ReadLine()?.Trim().ToLower();
 
@@ -57,7 +59,6 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                 {
                     Console.WriteLine("Checking if a database currently exists...");
                     _dbContext.Database.EnsureCreated();
-                    Console.WriteLine("Using existing database which is fully seeded.");
                     Console.WriteLine("All systems are go, Let's blow up the deathstar.");
                 }
                 else
@@ -66,13 +67,17 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                 }
             }
             var personService = new PersonService(_dbContext);
+            var personRepository = new PersonRepository(_dbContext);
 
             while (true)
             {
                 Console.WriteLine("\nMenu:");
                 Console.WriteLine("1. Search for a person by name or address");
-                Console.WriteLine("2. Display all persons");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("2. List all persons based on city or postalcode");
+                Console.WriteLine("3. Add a person to the database");
+                Console.WriteLine("4. Modify a person in the database");
+                Console.WriteLine("5. Delete a person from the database");
+                Console.WriteLine("6. Exit");
                 Console.Write("Enter your choice with the corresponding number: ");
 
                 string? choice = Console.ReadLine();
@@ -80,6 +85,7 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                 switch (choice)
                 {
                     case "1":
+
                         PrintPersonData(_dbContext);
 
                         break;
@@ -92,8 +98,20 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                             Console.WriteLine($"Name: {person.FirstName} {person.LastName}");
                         }
                         break;
-
                     case "3":
+
+                         AddPersonAsync(personRepository).Wait();
+
+                        break;
+
+                    case "4":
+
+                        break;
+
+                    case "5":
+
+                        break;
+                    case "6":
                         Console.WriteLine("Exiting program...");
                         return;
 
@@ -103,6 +121,69 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                 }
             }
         }
+        static async Task AddPersonAsync(IPersonRepository repository)
+        {
+            Console.Write("Enter first name: ");
+            string? firstName = Console.ReadLine();
+
+            Console.Write("Enter last name: ");
+            string? lastName = Console.ReadLine();
+
+            Console.Write("Enter date of birth (yyyy-mm-dd): ");
+            DateTime dateOfBirth;
+            while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth))
+            {
+                Console.Write("Invalid date. Please enter again (yyyy-mm-dd): ");
+            }
+
+            Console.Write("Enter street address: ");
+            string? street = Console.ReadLine();
+
+            Console.Write("Enter Country: ");
+            string? country = Console.ReadLine();
+
+            Console.Write("Enter City name: ");
+            string? cityname = Console.ReadLine();
+
+            Console.Write("Enter postalcode: ");
+            string? postalcode = Console.ReadLine();
+
+            Console.Write("Enter niscode : ");
+            string? niscode = Console.ReadLine();
+
+            Console.Write("Enter province : ");
+            string? province = Console.ReadLine();
+
+            Console.Write("Enter main (true/false): ");
+            string? main = Console.ReadLine()?.ToLower();
+            bool isMain = main == "true";
+
+
+            var newPerson = new Person
+            {
+                Id = Guid.NewGuid().ToString(),
+                FirstName = firstName,
+                LastName = lastName,
+                DateOfBirth = dateOfBirth,
+                Address = new Address
+                {
+                    Street = street,
+                    Country = country,
+                    ZipCode = new ZipCode
+                    {
+                        CityName = cityname,
+                        PostalCode = postalcode,
+                        NisCode = niscode,
+                        Province = province,
+                        Main = isMain
+                    }
+                }
+            };
+
+            await repository.AddPersonAsync(newPerson);
+            Console.WriteLine("Person added successfully!");
+        }
+
         private static void PrintPersonData(PersonsDbContext context)
         {
             var personService = new PersonService(context);
@@ -122,11 +203,11 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                     Console.WriteLine($"Name: {person.FirstName} {person.LastName}");
                     Console.WriteLine($"Date of birth: {person.DateOfBirth}");
                     Console.WriteLine($"Adress: {person.Address.Street}");
-                    Console.WriteLine($"CityName: {person.Address.Zipcode.CityName}");
-                    Console.WriteLine($"PostalCode: {person.Address.Zipcode.PostalCode}");
-                    Console.WriteLine($"NisCode: {person.Address.Zipcode.NisCode}");
-                    Console.WriteLine($"Province: {person.Address.Zipcode.Province}");
-                    Console.WriteLine($"MainCity: {person.Address.Zipcode.Main}");
+                    Console.WriteLine($"CityName: {person.Address.ZipCode.CityName}");
+                    Console.WriteLine($"PostalCode: {person.Address.ZipCode.PostalCode}");
+                    Console.WriteLine($"NisCode: {person.Address.ZipCode.NisCode}");
+                    Console.WriteLine($"Province: {person.Address.ZipCode.Province}");
+                    Console.WriteLine($"MainCity: {person.Address.ZipCode.Main}");
                     Console.WriteLine("----------------------------------------------------");
                 }
             }

@@ -31,4 +31,21 @@ public class PersonService
                 p.Address.Street.ToLower().Contains(name.ToLower())).ToList(); // Filter by last name or first name or by street data
         }
     }
+    public List<Person> SearchPostCode(string? name)
+    {
+        // If no firstname or lastname is provided, just return all persons please
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return _context.Person.ToList(); // Return all persons if no name is provided//just give error not all the data
+        }
+        else
+        {
+            // Apply filters for both firstName and lastName if provided
+            return _context.Person
+                .Where(
+                p => p.FirstName.ToLower().Contains(name.ToLower()) ||
+                p.LastName.ToLower().Contains(name.ToLower()) ||
+                p.Address.Street.ToLower().Contains(name.ToLower())).ToList(); // Filter by last name or first name or by street data
+        }
+    }
 }

@@ -23,9 +23,17 @@ namespace Examen.Advanced.Csharp.Contracts.Models
         [StringLength(4)]
         public string PostalCode { get; set; } = string.Empty;
 
+        //[Required]
+        //[Range(1000,9993)]
+        //public int PostalCode { get; set; } = string.Empty;
+
         [Required]
         [StringLength(5)]
         public string NisCode { get; set; } = string.Empty;
+
+        //[Required]
+        //[Range(01000,99999)]
+        //public int NisCode { get; set; } = string.Empty;
 
         [Required]
         [StringLength(50)]
