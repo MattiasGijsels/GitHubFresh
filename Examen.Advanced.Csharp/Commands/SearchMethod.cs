@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Examen.Advanced.Csharp.Contracts.Models;
 using Examen.Advanced.Csharp.Database.Context;
+using Microsoft.EntityFrameworkCore;
 
 public class PersonService
 {
@@ -13,26 +14,6 @@ public class PersonService
     {
         _context = context;
     }
-
-
-
-    //public List<Person> SearchPostCode(string? name)
-    //{
-    //    // If no firstname or lastname is provided, just return all persons please
-    //    if (string.IsNullOrWhiteSpace(name))
-    //    {
-    //        return _context.Person.ToList(); // Return all persons if no name is provided//just give error not all the data
-    //    }
-    //    else
-    //    {
-    //        // Apply filters for both firstName and lastName if provided
-    //        return _context.Person
-    //            .Where(
-    //            p => p.FirstName.ToLower().Contains(name.ToLower()) ||
-    //            p.LastName.ToLower().Contains(name.ToLower()) ||
-    //            p.Address.Street.ToLower().Contains(name.ToLower())).ToList(); // Filter by last name or first name or by street data
-    //    }
-    //}
     public static void FindPersonData(PersonsDbContext context)
     {
         var personService = new PersonService(context);
@@ -48,9 +29,9 @@ public class PersonService
             PrintResults(results);
         }
     }
-    public List<Person> SearchPersons(string? name)
+    public List<Person> SearchPersons(string name)
     {
-     // Apply filters for both firstName and lastName and adress information if provided
+     // Apply filters for both firstName and lastName and adress information
      return _context.Person
          .Where(
          p => p.FirstName.ToLower().Contains(name.ToLower()) ||
@@ -61,6 +42,7 @@ public class PersonService
     {
         if (results.Count > 0)
         {
+            Console.WriteLine();
             Console.WriteLine("Search Results:");
             Console.WriteLine("----------------------------------------------------");
             foreach (var person in results)
@@ -77,4 +59,55 @@ public class PersonService
             }
         }
     }
+    public static void FindCityPostcode(PersonsDbContext context)
+    {
+        var personService = new PersonService(context);
+        Console.Write("Enter the name of the city or the postal code: ");
+        string? userInput = Console.ReadLine().ToLower();
+        if (string.IsNullOrWhiteSpace(userInput))
+        {
+            Console.WriteLine("Please give me some data to work with.");
+        }
+        else
+        {
+            var results = personService.SearchCityNamePostalCode(userInput);
+            PrintResults(results);
+        }
+    }
+
+    public List<Person> SearchCityNamePostalCode(string userInput)
+    {
+        return _context.Person
+            .Include(p => p.Address)
+            .ThenInclude(a => a.ZipCode)
+            .Where(p => p.Address.ZipCode.CityName.ToLower().Contains(userInput.ToLower()) ||
+                        p.Address.ZipCode.PostalCode.ToLower().Contains(userInput))
+            .ToList();
+    }
+
+
+
+    //public static void FindCityPostcode(PersonsDbContext context)
+    //{
+    //    var personService = new PersonService(context);
+    //    Console.Write("Enter in the name of the city or the postalcode: ");
+    //    string? userInput = Console.ReadLine();
+    //    if (string.IsNullOrWhiteSpace(userInput))
+    //    {
+    //        Console.WriteLine("Please give me some data to work with.");
+    //    }
+    //    else
+    //    {
+    //        var results = personService.SearchCityNamePostalCode(userInput);
+    //        PrintResults(results);
+    //    }
+    //}
+    //public List<Zip> SearchCityNamePostalCode(string userInput)
+    //{
+    //    // Apply filters for both firstName and lastName and adress information
+    //    return _context.ZipCode
+    //        .Where(
+    //        p => p.CityName.ToLower().Contains(userInput.ToLower()) ||
+    //        p.PostalCode.Contains(userInput).ToList(); // Filter by last name or first name or by street data
+    //}
 }

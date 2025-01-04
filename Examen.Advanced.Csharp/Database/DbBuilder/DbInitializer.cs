@@ -91,12 +91,9 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                         break;
 
                     case "2":
-                        var allPersons = personService.SearchPersons(null);
-                        Console.WriteLine("Your name was not found, I will provide you with a list of all Persons:");
-                        foreach (var person in allPersons)
-                        {
-                            Console.WriteLine($"Name: {person.FirstName} {person.LastName}");
-                        }
+
+                        PersonService.FindCityPostcode(_dbContext);
+
                         break;
                     case "3":
 
