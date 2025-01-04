@@ -86,7 +86,7 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                 {
                     case "1":
 
-                        PrintPersonData(_dbContext);
+                        PersonService.FindPersonData(_dbContext);
 
                         break;
 
@@ -119,38 +119,6 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
-            }
-        }
-        private static void PrintPersonData(PersonsDbContext context)
-        {
-            var personService = new PersonService(context);
-            Console.Write("Enter the firstname,lastname or adress info searchterm: ");//how did I fuck up?
-            string? name = Console.ReadLine();
-            var results = personService.SearchPersons(name);
-            PrintResults(results);
-        }
-        private static void PrintResults(List<Person> results)
-        {
-            if (results.Count > 0)
-            {
-                Console.WriteLine("Search Results:");
-                Console.WriteLine("----------------------------------------------------");
-                foreach (var person in results)
-                {
-                    Console.WriteLine($"Name: {person.FirstName} {person.LastName}");
-                    Console.WriteLine($"Date of birth: {person.DateOfBirth}");
-                    Console.WriteLine($"Adress: {person.Address.Street}");
-                    Console.WriteLine($"CityName: {person.Address.ZipCode.CityName}");
-                    Console.WriteLine($"PostalCode: {person.Address.ZipCode.PostalCode}");
-                    Console.WriteLine($"NisCode: {person.Address.ZipCode.NisCode}");
-                    Console.WriteLine($"Province: {person.Address.ZipCode.Province}");
-                    Console.WriteLine($"MainCity: {person.Address.ZipCode.Main}");
-                    Console.WriteLine("----------------------------------------------------");
-                }
-            }
-            else
-            {
-                Console.WriteLine("No persons found with that name.");
             }
         }
     }

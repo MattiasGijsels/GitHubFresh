@@ -11,7 +11,7 @@ namespace Examen.Advanced.Csharp
     {
         public static List<ZipCode>? SeedFromCsv(PersonsDbContext dbContext, string filePath)
         {
-            // Check if the table already has data
+            // Checks if the table already has data
             if (!dbContext.ZipCode.Any())
             {
                 // Use the CsvParser to parse the CSV file
@@ -71,7 +71,7 @@ namespace Examen.Advanced.Csharp
                     },
                     new Person
                     {
-                        FirstName = "Anita",
+                        FirstName = "Anitas",
                         LastName = "Bath",
                         DateOfBirth = new DateTime(1978, 3, 10),
                         Address = new Address { Street = "789 Willow Rd.", Country = "Belgium", ZipCode = zipCodes[15]}
@@ -127,7 +127,7 @@ namespace Examen.Advanced.Csharp
                     },
                     new Person
                     {
-                        FirstName = "Ima",
+                        FirstName = "Imma",
                         LastName = "Pigg",
                         DateOfBirth = new DateTime(1974, 1, 15),
                         Address = new Address { Street = "951 Oak Grove", Country = "Belgium", ZipCode = zipCodes[880]}
@@ -148,14 +148,14 @@ namespace Examen.Advanced.Csharp
                     },
                     new Person
                     {
-                        FirstName = "Paige",
+                        FirstName = "Paigé",
                         LastName = "Turner",
                         DateOfBirth = new DateTime(1996, 7, 8),
                         Address = new Address { Street = "654 Redwood Ave.", Country = "Belgium", ZipCode = zipCodes[547]}
                     },
                     new Person
                     {
-                        FirstName = "Will",
+                        FirstName = "Willy",
                         LastName = "Power",
                         DateOfBirth = new DateTime(1988, 5, 19),
                         Address = new Address { Street = "456 Walnut Rd.", Country = "Belgium", ZipCode = zipCodes[604]}
@@ -163,14 +163,14 @@ namespace Examen.Advanced.Csharp
                     new Person
                     {
                         FirstName = "Chris",
-                        LastName = "P. Bacon",
+                        LastName = "Pi. Bacon",
                         DateOfBirth = new DateTime(1987, 3, 14),
                         Address = new Address { Street = "123 Pancake Blvd.", Country = "Belgium", ZipCode = zipCodes[145] }
                     },
                     new Person
                     {
                         FirstName = "Barry",
-                        LastName = "Cade",
+                        LastName = "Caden",
                         DateOfBirth = new DateTime(1991, 6, 23),
                         Address = new Address { Street = "456 Barrier St.", Country = "Belgium", ZipCode = zipCodes[623] }
                     },
@@ -183,14 +183,14 @@ namespace Examen.Advanced.Csharp
                     },
                     new Person
                     {
-                        FirstName = "Anita",
+                        FirstName = "Anitta",
                         LastName = "Bath",
                         DateOfBirth = new DateTime(1985, 11, 20),
                         Address = new Address { Street = "321 Tub Ln.", Country = "Belgium", ZipCode = zipCodes[487] }
                     },
                     new Person
                     {
-                        FirstName = "Luke",
+                        FirstName = "Lukas",
                         LastName = "Warm",
                         DateOfBirth = new DateTime(1993, 2, 12),
                         Address = new Address { Street = "654 Tepid Rd.", Country = "Belgium", ZipCode = zipCodes[784] }
@@ -232,7 +232,7 @@ namespace Examen.Advanced.Csharp
                     },
                     new Person
                     {
-                        FirstName = "Will",
+                        FirstName = "William",
                         LastName = "Power",
                         DateOfBirth = new DateTime(1992, 11, 3),
                         Address = new Address { Street = "654 Determination Dr.", Country = "Belgium", ZipCode = zipCodes[859] }
