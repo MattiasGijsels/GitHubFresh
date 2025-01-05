@@ -13,7 +13,8 @@ namespace Examen.Advanced.Csharp
     {
         static async Task Main(string[] args)
         {
-            await DbInitializer.Initialize();
+            var db = await DbInitializer.Initialize();
+            await MenuHandler.HandleAsync(db);
 
         }
     }
