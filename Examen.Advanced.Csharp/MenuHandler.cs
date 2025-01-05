@@ -32,14 +32,13 @@ namespace Examen.Advanced.Csharp
                 switch (choice)
                 {
                     case "1":
-
                         PersonService.FindPersonData(_dbContext);
                         break;
 
                     case "2":
-
                         PersonService.FindCityPostcode(_dbContext);
                         break;
+
                     case "3":
                         Console.Write("Enter first name: ");
                         string? firstName = Console.ReadLine();
@@ -108,7 +107,6 @@ namespace Examen.Advanced.Csharp
                         break;
 
                     case "5":
-                        // Ask the user for the first or last name of the person to delete
                         Console.Write("Enter first or last name of the person you want to delete: ");
                         string namePerson = Console.ReadLine()?.Trim() ?? string.Empty;
                         await personRepository.DeletePersonAsync(namePerson);

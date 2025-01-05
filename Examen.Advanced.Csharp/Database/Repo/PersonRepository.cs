@@ -26,78 +26,21 @@ namespace Examen.Advanced.Csharp.Database.Repositories
         }
         public async Task AddPersonAsync(Person person)
         {
-            //Console.Write("Enter first name: ");
-            //string? firstName = Console.ReadLine();
-
-            //Console.Write("Enter last name: ");
-            //string? lastName = Console.ReadLine();
-
-            //Console.Write("Enter date of birth (yyyy-mm-dd): ");
-            //DateTime dateOfBirth;
-            //while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth))
-            //{
-            //    Console.Write("Invalid date. Please enter again (yyyy-mm-dd): ");
-            //}
-
-            //Console.Write("Enter street address: ");
-            //string? street = Console.ReadLine();
-
-            //Console.Write("Enter Country: ");
-            //string? country = Console.ReadLine();
-
-            //Console.Write("Enter City name: ");
-            //string? cityname = Console.ReadLine();
-
-            //Console.Write("Enter postalcode: ");
-            //string? postalcode = Console.ReadLine();
-
-            //Console.Write("Enter niscode : ");
-            //string? niscode = Console.ReadLine();
-
-            //Console.Write("Enter province : ");
-            //string? province = Console.ReadLine();
-
-            //Console.Write("Enter main (true/false): ");
-            //string? main = Console.ReadLine()?.ToLower();
-            //bool isMain = main == "true";
-
-
-            //var newPerson = new Person
-            //{
-            //    Id = Guid.NewGuid().ToString(),
-            //    FirstName = firstName,
-            //    LastName = lastName,
-            //    DateOfBirth = dateOfBirth,
-            //    Address = new Address
-            //    {
-            //        Street = street,
-            //        Country = country,
-            //        ZipCode = new ZipCode
-            //        {
-            //            CityName = cityname,
-            //            PostalCode = postalcode,
-            //            NisCode = niscode,
-            //            Province = province,
-            //            Main = isMain
-            //        }
-            //    }
-            //};
-
             await AddPersonToDbAsync(person);
             Console.WriteLine("Person added successfully!");
         }
         public async Task AddPersonToDbAsync(Person person)
         {
             _dbContext.Person.Add(person);
-            await _dbContext.SaveChangesAsync(); // Save the new person to the database - add to learnings
+            await _dbContext.SaveChangesAsync();
+            #region
+            // SaveChangesAsync() automatically detects any changes made to entities tracked by the DbContext.
+            // These changes can include: New entities: Entities added using Add(), AddRange()
+            #endregion
         }
 
         public async Task DeletePersonAsync(string namePerson)
         {
-            //// Ask the user for the first or last name of the person to delete
-            //Console.Write("Enter first or last name to delete: ");
-            //string name = Console.ReadLine()?.Trim() ?? string.Empty;
-
             // Find the person by first name or last name
             var person = await _dbContext.Person
                 .FirstOrDefaultAsync(p => (p.FirstName == namePerson || p.LastName == namePerson) && !p.IsDeleted);
@@ -117,9 +60,6 @@ namespace Examen.Advanced.Csharp.Database.Repositories
 
         public async Task ModifyPersonAsync(string name)
         {
-            //Console.Write("Enter the first name or last name of the person to modify: ");
-            //string name = Console.ReadLine() ?? string.Empty;
-
             // Find the person by first name or last name
             var person = await _dbContext.Person
                 .Include(p => p.Address)

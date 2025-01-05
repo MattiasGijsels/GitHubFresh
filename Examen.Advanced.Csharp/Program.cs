@@ -15,7 +15,6 @@ namespace Examen.Advanced.Csharp
         {
             var db = await DbInitializer.Initialize();
             await MenuHandler.HandleAsync(db);
-
         }
     }
 }
