@@ -34,7 +34,7 @@ namespace Examen.Advanced.Csharp.Database.Repositories
 
             Console.Write("Enter date of birth (yyyy-mm-dd): ");
             DateTime dateOfBirth;
-            while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth)) //add to learnings
+            while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth))
             {
                 Console.Write("Invalid date. Please enter again (yyyy-mm-dd): ");
             }
@@ -92,16 +92,29 @@ namespace Examen.Advanced.Csharp.Database.Repositories
             await _dbContext.SaveChangesAsync(); // Save the new person to the database - add to learnings
         }
 
-        public async Task DeletePersonAsync(string id)
+        public async Task DeletePersonAsync()
         {
-            // Find the person by ID and mark them as deleted
-            var person = await _dbContext.Person.FindAsync(id);//- add to learnings
+            // Ask the user for the first or last name of the person to delete
+            Console.Write("Enter first or last name to delete: ");
+            string name = Console.ReadLine()?.Trim() ?? string.Empty;
+
+            // Find the person by first name or last name
+            var person = await _dbContext.Person
+                .FirstOrDefaultAsync(p => (p.FirstName == name || p.LastName == name) && !p.IsDeleted);
+
+            // If a person is found, delete them (soft delete)
             if (person != null)
             {
-                person.IsDeleted = true; // Soft delete
+                person.IsDeleted = true; // Mark as deleted
                 await _dbContext.SaveChangesAsync(); // Save changes
+                Console.WriteLine($"{name} has been deleted.");
+            }
+            else
+            {
+                Console.WriteLine("Person not found.");
             }
         }
+
         public async Task ModifyPersonAsync()
         {
             Console.Write("Enter the first name or last name of the person to modify: ");

@@ -25,7 +25,6 @@ namespace Examen.Advanced.Csharp.Contracts.Models
         [StringLength(50)]
         public string? Country { get; set; } = "Belgium"; // Default country is "Belgium"
 
-        //fb: street numbers add to dummy?
     }
 }
 

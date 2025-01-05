@@ -109,6 +109,8 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
 
                     case "5":
 
+                        PersonRepository.DeletePersonAsync(personRepository).Wait();
+
                         break;
                     case "6":
                         Console.WriteLine("Exiting program...");
