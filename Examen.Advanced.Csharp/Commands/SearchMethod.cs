@@ -31,7 +31,7 @@ public class PersonService
     }
     public List<Person> SearchPersons(string name)
     {
-     // Apply filters for both firstName and lastName and adress information
+
      return _context.Person
          .Where(
          p => p.FirstName.ToLower().Contains(name.ToLower()) ||

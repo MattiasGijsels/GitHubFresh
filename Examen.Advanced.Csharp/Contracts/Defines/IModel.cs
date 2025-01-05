@@ -10,5 +10,9 @@ namespace Examen.Advanced.Csharp.Contracts.Defines
     {
         string Id { get; }
         bool IsDeleted { get; }
+
+        #region
+        // no setters for encapsulation,immutability, data-integrity
+        #endregion
     }
 }

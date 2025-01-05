@@ -31,7 +31,9 @@ namespace Examen.Advanced.Csharp.Contracts.Models
         [Required] 
         public Address Address { get; set; } = new Address();
 
-        // Parameterized constructor
+        #region
+        // Parameterized constructor for immutability,data validation, clearer object state, flexibility in combo with default ctr
+        #endregion
         public Person(string id, string firstName, string lastName, DateTime dateOfBirth)
             : base(id)
         {

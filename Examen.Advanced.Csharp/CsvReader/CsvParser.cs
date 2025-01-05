@@ -11,16 +11,14 @@ namespace Examen.Advanced.Csharp.CsvReader
         {
             var zipCodes = new List<ZipCode>();
 
-            // Ensure the file exists
             if (!File.Exists(filePath))
                 throw new FileNotFoundException($"File not found: {filePath}");
 
-            // Open the file using a FileStream
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             using (var reader = new StreamReader(fileStream))
             {
-                // Read the header line and skip it
-                var headerLine = reader.ReadLine();
+                
+                var headerLine = reader.ReadLine();     // Read the header line and skip it
                 if (headerLine == null)
                     throw new Exception("The CSV file is empty or missing headers.");
 
@@ -38,7 +36,7 @@ namespace Examen.Advanced.Csharp.CsvReader
                         var province = columns[3].Trim();
                         var main = columns[4].Trim() == "1";
 
-                        // Validate required fields before adding
+                        // Validates required fields before adding
                         if (!string.IsNullOrWhiteSpace(cityName) &&
                             !string.IsNullOrWhiteSpace(postalCode) &&
                             !string.IsNullOrWhiteSpace(nisCode) &&
@@ -64,8 +62,7 @@ namespace Examen.Advanced.Csharp.CsvReader
                     }
                 }
             }
-
             return zipCodes;
         }
-    }// presuming our csv file is perfect without any corrupt data
+    }
 }

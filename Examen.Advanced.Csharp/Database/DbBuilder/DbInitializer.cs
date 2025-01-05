@@ -29,7 +29,8 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
             optionsBuilder.UseSqlServer(connectionString);
 
             // Instantiate the DbContext
-            using var _dbContext = new PersonsDbContext(optionsBuilder.Options);
+            var _dbContext = new PersonsDbContext(optionsBuilder.Options);
+
             string? userInput = "";
 
             while (!(userInput == "yes" || userInput == "no"))
@@ -66,7 +67,7 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                     Console.WriteLine("Your input was invalid. Please enter 'yes' or 'no'.");
                 }
             }
-            //await MenuHandler.HandleAsync(_dbContext);
+
             return _dbContext;
         }
     }

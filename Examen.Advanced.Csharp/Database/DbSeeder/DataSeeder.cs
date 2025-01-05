@@ -18,7 +18,7 @@ namespace Examen.Advanced.Csharp
                 List<ZipCode> zipCodes = CsvReader.CsvParser.ParseCsvToZipCode(filePath);
 
 
-                // Add parsed data to the database
+                // adds the parsed ZipCode objects to the ZipCode collection in the db context
                 dbContext.ZipCode.AddRange(zipCodes);
 
                 // Save changes to the database

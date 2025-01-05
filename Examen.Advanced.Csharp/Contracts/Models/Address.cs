@@ -19,11 +19,11 @@ namespace Examen.Advanced.Csharp.Contracts.Models
         [StringLength(100)]
         public string Street { get; set; } = string.Empty;
 
-        /*[Required]*///check if this one will fuck up the seeding !
+        [Required]//check if this one will fuck up the seeding !
         public ZipCode ZipCode { get; set; } = new ZipCode();
         
         [StringLength(50)]
-        public string? Country { get; set; } = "Belgium"; // Default country is "Belgium"
+        public string? Country { get; set; } = "Belgium"; 
 
     }
 }
