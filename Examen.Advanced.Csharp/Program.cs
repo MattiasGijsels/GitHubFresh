@@ -11,9 +11,9 @@ namespace Examen.Advanced.Csharp
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            DbInitializer.Initialize();
+            await DbInitializer.Initialize();
 
         }
     }

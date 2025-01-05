@@ -13,7 +13,7 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
 {
     public class DbInitializer
     {
-        public static void Initialize()
+        public static async Task Initialize()
         {
             // Build the configuration
             var configuration = new ConfigurationBuilder()
@@ -87,31 +87,86 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
                     case "1":
 
                         PersonService.FindPersonData(_dbContext);
-
                         break;
 
                     case "2":
 
                         PersonService.FindCityPostcode(_dbContext);
-
                         break;
                     case "3":
+                        Console.Write("Enter first name: ");
+                        string? firstName = Console.ReadLine();
 
-                        PersonRepository.AddPersonAsync(personRepository).Wait();
+                        Console.Write("Enter last name: ");
+                        string? lastName = Console.ReadLine();
 
+                        Console.Write("Enter date of birth (yyyy-mm-dd): ");
+                        DateTime dateOfBirth;
+                        while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth))
+                        {
+                            Console.Write("Invalid date. Please enter again (yyyy-mm-dd): ");
+                        }
+
+                        Console.Write("Enter street address: ");
+                        string? street = Console.ReadLine();
+
+                        Console.Write("Enter Country: ");
+                        string? country = Console.ReadLine();
+
+                        Console.Write("Enter City name: ");
+                        string? cityname = Console.ReadLine();
+
+                        Console.Write("Enter postalcode: ");
+                        string? postalcode = Console.ReadLine();
+
+                        Console.Write("Enter niscode : ");
+                        string? niscode = Console.ReadLine();
+
+                        Console.Write("Enter province : ");
+                        string? province = Console.ReadLine();
+
+                        Console.Write("Enter main (true/false): ");
+                        string? main = Console.ReadLine()?.ToLower();
+                        bool isMain = main == "true";
+
+
+                        var newPerson = new Person
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            FirstName = firstName,
+                            LastName = lastName,
+                            DateOfBirth = dateOfBirth,
+                            Address = new Address
+                            {
+                                Street = street,
+                                Country = country,
+                                ZipCode = new ZipCode
+                                {
+                                    CityName = cityname,
+                                    PostalCode = postalcode,
+                                    NisCode = niscode,
+                                    Province = province,
+                                    Main = isMain
+                                }
+                            }
+                        };
+
+                        await personRepository.AddPersonAsync(newPerson);
                         break;
 
                     case "4":
-
-                        PersonRepository.ModifyPersonAsync(personRepository).Wait();
-
+                        Console.Write("Enter the first name or last name of the person to modify: ");
+                        string name = Console.ReadLine() ?? string.Empty;
+                        await personRepository.ModifyPersonAsync(name);
                         break;
 
                     case "5":
-
-                        PersonRepository.DeletePersonAsync(personRepository).Wait();
-
+                        // Ask the user for the first or last name of the person to delete
+                        Console.Write("Enter first or last name of the person you want to delete: ");
+                        string namePerson = Console.ReadLine()?.Trim() ?? string.Empty;
+                        await personRepository.DeletePersonAsync(namePerson);
                         break;
+
                     case "6":
                         Console.WriteLine("Exiting program...");
                         return;
