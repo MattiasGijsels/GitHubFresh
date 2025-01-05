@@ -22,7 +22,7 @@ namespace Examen.Advanced.Csharp.Database.Repositories
             return await _dbContext.Person
                 .Include(p => p.Address)
                 .Where(p => !p.IsDeleted)
-                .ToListAsync();
+                .ToListAsync();//add to learnings
         }
         public static async Task AddPersonAsync(IPersonRepository repository)
         {
@@ -34,7 +34,7 @@ namespace Examen.Advanced.Csharp.Database.Repositories
 
             Console.Write("Enter date of birth (yyyy-mm-dd): ");
             DateTime dateOfBirth;
-            while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth))
+            while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth)) //add to learnings
             {
                 Console.Write("Invalid date. Please enter again (yyyy-mm-dd): ");
             }
@@ -102,5 +102,89 @@ namespace Examen.Advanced.Csharp.Database.Repositories
                 await _dbContext.SaveChangesAsync(); // Save changes
             }
         }
+        public async Task ModifyPersonAsync()
+        {
+            Console.Write("Enter the first name or last name of the person to modify: ");
+            string name = Console.ReadLine() ?? string.Empty;
+
+            // Find the person by first name or last name
+            var person = await _dbContext.Person
+                .Include(p => p.Address)
+                .FirstOrDefaultAsync(p => (p.FirstName == name || p.LastName == name) && !p.IsDeleted);
+
+            if (person == null)
+            {
+                Console.WriteLine("Person not found.");
+                return;
+            }
+
+            // Get new details from the user
+            Console.Write("Enter new first name (leave empty to keep current): ");
+            string? newFirstName = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newFirstName))
+            {
+                person.FirstName = newFirstName;
+            }
+
+            Console.Write("Enter new last name (leave empty to keep current): ");
+            string? newLastName = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newLastName))
+            {
+                person.LastName = newLastName;
+            }
+
+            Console.Write("Enter new street address (leave empty to keep current): ");
+            string? newStreet = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newStreet))
+            {
+                person.Address.Street = newStreet;
+            }
+
+            Console.Write("Enter new country (leave empty to keep current): ");
+            string? newCountry = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newCountry))
+            {
+                person.Address.Country = newCountry;
+            }
+
+            Console.Write("Enter new city (leave empty to keep current): ");
+            string? newCityName = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newCityName))
+            {
+                person.Address.ZipCode.CityName = newCityName;
+            }
+
+            Console.Write("Enter a new postalcode, only 4 numbers! (leave empty to keep current): ");
+            string? newPostalCode = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newPostalCode))
+            {
+                person.Address.ZipCode.PostalCode = newPostalCode;
+            }
+
+            Console.Write("Enter a new NISCODE, only 5 numbers! (leave empty to keep current): ");
+            string? newNisCode = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newNisCode))
+            {
+                person.Address.ZipCode.NisCode = newNisCode;
+            }
+
+            Console.Write("Enter a new province (leave empty to keep current): ");
+            string? newProvince = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newProvince))
+            {
+                person.Address.ZipCode.NisCode = newProvince;
+            }
+            Console.Write("Enter a new main (true/false, leave empty to keep current): ");
+            string? mainInput = Console.ReadLine();
+            if (bool.TryParse(mainInput, out bool newMain))
+            {
+                person.Address.ZipCode.Main = newMain;
+            }
+
+            // Save the updated person to the database
+            await _dbContext.SaveChangesAsync();
+            Console.WriteLine("Person modified successfully!");
+        }
+
     }
 }

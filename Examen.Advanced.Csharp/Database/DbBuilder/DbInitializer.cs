@@ -103,6 +103,8 @@ namespace Examen.Advanced.Csharp.Database.DbInitializer
 
                     case "4":
 
+                        PersonRepository.ModifyPersonAsync(personRepository).Wait();
+
                         break;
 
                     case "5":
