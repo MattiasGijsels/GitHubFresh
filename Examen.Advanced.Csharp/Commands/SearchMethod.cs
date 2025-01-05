@@ -58,12 +58,16 @@ public class PersonService
                 Console.WriteLine("----------------------------------------------------");
             }
         }
+        else
+        {
+            Console.WriteLine("Your query didn't yield any results");
+        }
     }
     public static void FindCityPostcode(PersonsDbContext context)
     {
         var personService = new PersonService(context);
         Console.Write("Enter the name of the city or the postal code: ");
-        string? userInput = Console.ReadLine().ToLower();
+        string? userInput = Console.ReadLine();
         if (string.IsNullOrWhiteSpace(userInput))
         {
             Console.WriteLine("Please give me some data to work with.");
@@ -84,31 +88,4 @@ public class PersonService
                         p.Address.ZipCode.PostalCode.ToLower().Contains(userInput))
             .ToList();
     }
-
-
-
-
-    //public static void FindCityPostcode(PersonsDbContext context)
-    //{
-    //    var personService = new PersonService(context);
-    //    Console.Write("Enter in the name of the city or the postalcode: ");
-    //    string? userInput = Console.ReadLine();
-    //    if (string.IsNullOrWhiteSpace(userInput))
-    //    {
-    //        Console.WriteLine("Please give me some data to work with.");
-    //    }
-    //    else
-    //    {
-    //        var results = personService.SearchCityNamePostalCode(userInput);
-    //        PrintResults(results);
-    //    }
-    //}
-    //public List<Zip> SearchCityNamePostalCode(string userInput)
-    //{
-    //    // Apply filters for both firstName and lastName and adress information
-    //    return _context.ZipCode
-    //        .Where(
-    //        p => p.CityName.ToLower().Contains(userInput.ToLower()) ||
-    //        p.PostalCode.Contains(userInput).ToList(); // Filter by last name or first name or by street data
-    //}
 }
