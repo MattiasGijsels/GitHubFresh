@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labo.API", "Labo.API\Labo.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labo.API.Contracts", "Labo.API.Contracts\Labo.API.Contracts.csproj", "{2F9F1C41-E43B-466F-A658-1C3FCCB0F58C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labo.API.Database", "Labo.API.Database\Labo.API.Database.csproj", "{C1DF7A9E-561C-4C09-BA9E-FB7AFAFAD1E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2F9F1C41-E43B-466F-A658-1C3FCCB0F58C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F9F1C41-E43B-466F-A658-1C3FCCB0F58C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F9F1C41-E43B-466F-A658-1C3FCCB0F58C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1DF7A9E-561C-4C09-BA9E-FB7AFAFAD1E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1DF7A9E-561C-4C09-BA9E-FB7AFAFAD1E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1DF7A9E-561C-4C09-BA9E-FB7AFAFAD1E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1DF7A9E-561C-4C09-BA9E-FB7AFAFAD1E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
