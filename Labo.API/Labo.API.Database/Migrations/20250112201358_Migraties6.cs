@@ -5,7 +5,7 @@
 namespace Labo.API.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Migraties6 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,7 +29,7 @@ namespace Labo.API.Database.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    GenreId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    WriterId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -48,7 +48,7 @@ namespace Labo.API.Database.Migrations
                     BookTitle = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     GenreId = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     WriterId = table.Column<string>(type: "nvarchar(50)", nullable: true),
-                    NumberPages = table.Column<int>(type: "int", nullable: false),
+                    PageCount = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

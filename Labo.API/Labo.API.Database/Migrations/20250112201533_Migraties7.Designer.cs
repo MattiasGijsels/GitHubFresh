@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labo.API.Database.Migrations
 {
     [DbContext(typeof(BooksDbContext))]
-    [Migration("20250112171003_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250112201533_Migraties7")]
+    partial class Migraties7
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,7 +46,7 @@ namespace Labo.API.Database.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("NumberPages")
+                    b.Property<int>("PageCount")
                         .HasColumnType("int");
 
                     b.Property<string>("WriterId")
@@ -68,7 +68,6 @@ namespace Labo.API.Database.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("GenreId")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -96,15 +95,15 @@ namespace Labo.API.Database.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("GenreId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("WriterId")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");

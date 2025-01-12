@@ -11,7 +11,7 @@ namespace Labo.API.Contracts.Models
     public class Genre: ModelBase
     {
         [StringLength(50)]
-        public string GenreId { get; set; } = default!;
+        public string? GenreId { get; set; } = default!;
 
         [StringLength(50)]
         public string GenreName { get; set; }

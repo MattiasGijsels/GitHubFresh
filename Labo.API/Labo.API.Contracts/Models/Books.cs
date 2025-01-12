@@ -20,7 +20,7 @@ namespace Labo.API.Contracts.Models
         public Genre Genre{ get; set; } = new Genre();
         public Writers Writer { get; set; } = new Writers();
 
-        public int NumberPages { get; set; }
+        public int PageCount { get; set; }
 
         public Books() { }
     }
