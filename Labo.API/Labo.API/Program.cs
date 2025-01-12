@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Labo.API.Database.Context;
 using System;
+using Labo.API.Database.DbSeeder;
+using Microsoft.AspNetCore.Builder;
 
 namespace Labo.API
 {
@@ -10,27 +12,21 @@ namespace Labo.API
     {
         public static void Main(string[] args)
         {
-            // Set up the dependency injection container
-            var serviceProvider = new ServiceCollection()
-                .AddDbContext<BooksDbContext>(options =>
-                    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BooksDb;Trusted_Connection=True;MultipleActiveResultSets=true"))
-                .BuildServiceProvider();
+            var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<BooksDbContext>(options =>
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BooksDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
+            var app = builder.Build();
 
-            // Get an instance of the DbContext from the service provider
-            using (var scope = serviceProvider.CreateScope())
+            using (var scope = app.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<BooksDbContext>();
-
-                // Perform any operations with the DbContext here
-                // For example, adding a new book:
-                // dbContext.Books.Add(new Book { Title = "New Book" });
-                // dbContext.SaveChanges();
-
+                dbContext.Database.Migrate();
                 Console.WriteLine("DbContext initialized successfully!");
+
+                DbSeeder.SeedDummyData(dbContext); // Corrected line
             }
 
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
+            app.Run();
         }
     }
 }
