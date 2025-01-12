@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Defines\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
 
   <ItemGroup>

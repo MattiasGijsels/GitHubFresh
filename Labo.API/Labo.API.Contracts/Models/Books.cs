@@ -12,9 +12,6 @@ namespace Labo.API.Contracts.Models
     public class Books:ModelBase
 
     {
-        [StringLength(50)]
-        public string BookId { get; set; } = default!;
-
         [StringLength(100)]
         public string BookTitle { get; set; } = default!;
         public Genre Genre{ get; set; } = new Genre();

@@ -11,9 +11,6 @@ namespace Labo.API.Contracts.Models
     public class Writers:ModelBase
     {
         [StringLength(50)]
-        public string? WriterId { get; set; } = default!;
-
-        [StringLength(50)]
         public string FirstName { get; set; }
 
         [StringLength(50)]
