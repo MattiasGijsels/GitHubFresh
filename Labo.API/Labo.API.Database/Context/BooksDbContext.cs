@@ -26,6 +26,10 @@ namespace Labo.API.Database.Context
                 optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BooksDb;Trusted_Connection=True;MultipleActiveResultSets=true");
             }
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);//combineren met de Dbseeder
+        }
     }
 }
 

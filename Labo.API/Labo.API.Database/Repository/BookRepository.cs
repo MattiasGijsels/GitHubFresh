@@ -1,38 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Labo.API.Contracts.Models;
+using Labo.API.Database.Context;
+
 
 namespace Examen.Advanced.Csharp.Database.Repositories
 {
     public class RepoBooks : IRepoBooks
     {
-        private List<Books> _books;
+        //private List<Books> _books;
+        BooksDbContext _context;
 
-        public RepoBooks()
+        public RepoBooks(BooksDbContext books)
         {
-            _books = new List<Books>();
+            _context = books;
         }
 
         // Get all non-deleted books
-        public Task<List<Books>> GetAllBooksAsync()
-        {
-            var nonDeletedBooks = _books.Where(book => !book.IsDeleted).ToList();
-            return Task.FromResult(nonDeletedBooks);
-        }
-
-        // Add a new book
+        public async Task<List<Books>> GetAllBooksAsync()=> await _context.Books.Where(book => !book.IsDeleted).ToListAsync();
+            
+                // Add a new book
         public Task AddBookToDbAsync(Books book)
         {
-            _books.Add(book);
+            _context.Add(book);
             return Task.CompletedTask;
         }
 
         // Soft delete a book
         public Task DeleteBooksAsync(string titleBook)
         {
-            var book = _books.FirstOrDefault(b => b.BookTitle.Equals(titleBook, StringComparison.OrdinalIgnoreCase));
+            var book = _context.FirstOrDefault(b => b.BookTitle.Equals(titleBook, StringComparison.OrdinalIgnoreCase));
             if (book != null)
             {
                 book.IsDeleted = true;
@@ -43,7 +43,7 @@ namespace Examen.Advanced.Csharp.Database.Repositories
         // Modify a book
         public Task ModifyBookAsync(string title)
         {
-            var book = _books.FirstOrDefault(b => b.BookTitle.Equals(title, StringComparison.OrdinalIgnoreCase));
+            var book = _context.FirstOrDefault(b => b.BookTitle.Equals(title, StringComparison.OrdinalIgnoreCase));
             if (book != null)
             {
                 // Modify the book as needed, for example:
