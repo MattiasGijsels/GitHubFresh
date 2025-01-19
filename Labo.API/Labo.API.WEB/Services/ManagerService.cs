@@ -13,7 +13,7 @@ namespace Labo.API.WEB.Services
         IRepoBooks Repo { get; init; } = default!;
         public ManagerService(IRepoBooks repo)
         {
-            Repo= repo;
+            Repo = repo;
         }
 
 
@@ -33,10 +33,14 @@ namespace Labo.API.WEB.Services
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<Books>> IManagerService.FindBookAsync(string BookTitle)
+        async Task<IEnumerable<Books>> IManagerService.FindBookAsync(string BookTitle)
         {
-            throw new NotImplementedException();
+             return await Repo.FindBookAsync(BookTitle);
         }
+
+        //{
+        //    return await Repo.FindBookAsync(BookTitle);
+        //}
 
         Task<IEnumerable<Books>> IManagerService.GetAllAsync()
         {

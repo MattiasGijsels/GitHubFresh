@@ -9,6 +9,7 @@ namespace Examen.Advanced.Csharp.Database.Repositories
     {
         Task<List<Books>> GetAllBooksAsync();        // Get all non-deleted books
         Task AddBookToDbAsync(Books book);         // Add a new book
+        Task<List<Books>> FindBookAsync(string BookTitle);
         Task DeleteBooksAsync(string titleBook);      // Soft delete a book
         Task ModifyBookAsync(string title);            //modify a book
     }

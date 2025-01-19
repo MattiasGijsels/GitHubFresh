@@ -13,12 +13,13 @@ namespace Labo.API.WEB.Controllers
         { BookService = service; }
 
 
-        private readonly ILogger<BooksController> _logger;
+        //private readonly ILogger<BooksController> _logger;
 
-        public BooksController(ILogger<BooksController> logger)// check serilog nugget
-        {
-            _logger = logger;
-        }
+        //public BooksController(ILogger<BooksController> logger)// check serilog nugget
+        //{
+        //    _logger = logger;
+        //}
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Books>>> GetBooks()
         {

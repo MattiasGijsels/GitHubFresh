@@ -1,6 +1,8 @@
 
+using Microsoft.EntityFrameworkCore.Design;
 using Examen.Advanced.Csharp.Database.Repositories;
 using Labo.API.Database.Context;
+using Labo.API.Database.DbSeeder;
 using Labo.API.WEB.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +24,13 @@ namespace Labo.API.WEB
             builder.Services.AddScoped<IRepoBooks,RepoBooks>();
             builder.Services.AddScoped<IManagerService,ManagerService>();
             var app = builder.Build();
+
+            // Seed the database with dummy data
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<BooksDbContext>();
+                DbSeeder.SeedDummyData(context);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
