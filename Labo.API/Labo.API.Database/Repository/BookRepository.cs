@@ -66,6 +66,32 @@ namespace Examen.Advanced.Csharp.Database.Repositories
            return await query.ToListAsync();
 
         }
+        public async Task<IEnumerable<Books>> FilterAsync(string? id, string? BookTitle, string? GenreName, string? FirstName, string? LastName) 
+        {
+            var query = _context.Books.AsQueryable();
+            if (!string.IsNullOrEmpty(id))
+            {
+                query = query.Where(o => o.Id.ToLower().Contains(id.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(BookTitle))
+            {
+                query = query.Where(o => o.BookTitle.ToLower().Contains(BookTitle.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(GenreName)) 
+            {
+                query = query.Where(o => o.Genre.GenreName.ToLower().Contains(GenreName.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(FirstName)) 
+            {
+                query = query.Where(o => o.Writer.FirstName.ToLower().Contains(FirstName.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(LastName)) 
+            {
+                query = query.Where(o => o.Writer.LastName.ToLower().Contains(LastName.ToLower()));
+            }
+
+            return await query.ToListAsync();
+        }
     }
 }
 

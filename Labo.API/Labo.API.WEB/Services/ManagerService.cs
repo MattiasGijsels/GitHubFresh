@@ -16,8 +16,6 @@ namespace Labo.API.WEB.Services
             Repo = repo;
         }
 
-
-
         Task<bool> IManagerService.CreateAsync(Books book)
         {
             throw new NotImplementedException();
@@ -28,19 +26,15 @@ namespace Labo.API.WEB.Services
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<Books>> IManagerService.FilterAsync(string? id, string? BookTitle, string? GenreName, string? FirstName, string? LastName)
+        async Task<IEnumerable<Books>> IManagerService.FilterAsync(string? id, string? BookTitle, string? GenreName, string? FirstName, string? LastName)
         {
-            throw new NotImplementedException();
+            return await Repo.FilterAsync(id,BookTitle,GenreName,FirstName,LastName);
         }
 
         async Task<IEnumerable<Books>> IManagerService.FindBookAsync(string BookTitle)
         {
              return await Repo.FindBookAsync(BookTitle);
         }
-
-        //{
-        //    return await Repo.FindBookAsync(BookTitle);
-        //}
 
         Task<IEnumerable<Books>> IManagerService.GetAllAsync()
         {

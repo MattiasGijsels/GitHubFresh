@@ -19,7 +19,6 @@ namespace Labo.API.WEB.Controllers
         //{
         //    _logger = logger;
         //}
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Books>>> GetBooks()
         {
