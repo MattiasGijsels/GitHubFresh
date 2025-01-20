@@ -26,13 +26,13 @@ namespace Examen.Advanced.Csharp.Database.Repositories
 
         public async Task<bool> AddBookAsync(Books book)
         {
-            if (book == null)
-            {
-                return false; // Or throw an exception
-            }
+            //if (book == null)
+            //{
+            //    return false; // Or throw an exception
+            //}
 
             var existingBook = await _context.Books
-                .FirstOrDefaultAsync(b => b.Id == book.Id);
+                .Where(b => b.Id == book.Id).AsNoTracking().SingleOrDefaultAsync();//move to services
 
             if (existingBook != null)
             {
@@ -217,9 +217,10 @@ namespace Examen.Advanced.Csharp.Database.Repositories
         }
         public async Task<bool> UpdateAsync(Books book)
         {
-            if (await _context.Books.FindAsync(book.Id) != null) 
+            if (await _context.Books.Where(d=>d.Id == book.Id).AsNoTracking().FirstOrDefaultAsync() != null)
             { 
-                 _context.Books.Update(book);
+                //_context.Attach(book); 
+                _context.Books.Update(book);
                 return await _context.SaveChangesAsync()>0;
             }
             return false;
