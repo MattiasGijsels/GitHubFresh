@@ -12,7 +12,6 @@ namespace Labo.API.WEB.Controllers
         public BooksController(IManagerService service)
         { BookService = service; }
 
-
         //private readonly ILogger<BooksController> _logger;
 
         //public BooksController(ILogger<BooksController> logger)// check serilog nugget
@@ -24,13 +23,16 @@ namespace Labo.API.WEB.Controllers
         {
             return Ok(await BookService.GetAllAsync());
         }
+
         [HttpGet("find/Books/{BookTitle}")]
         public async Task<ActionResult<Books>> FindBooks(string BookTitle)
         {
             return Ok(await BookService.FindBookAsync(BookTitle));
         }
+
         [HttpGet("filter")]
         public async Task<ActionResult<IEnumerable<Books>>> FilterBooks(
+
             [FromQuery] string? id = null,
             [FromQuery] string? BookTitle = null,
             [FromQuery] string? GenreName = null,
@@ -40,6 +42,21 @@ namespace Labo.API.WEB.Controllers
         {
             return Ok(await BookService.FilterAsync(id, BookTitle, GenreName, FirstName, LastName));
 
+        }
+        [HttpPost]
+        public async Task<ActionResult<bool>> AddBookAsync(Books book)
+        {
+            return Ok(await BookService.AddBookAsync(book));
+        }
+        [HttpDelete]
+        public async Task<ActionResult<bool>> DeleteBookAsync(string id)
+        {
+            return Ok(await BookService.DeleteAsync(id));
+        }
+        [HttpPut("Manage/upsert")]
+        public async Task<ActionResult<bool>> UpsertBook(Books book) 
+        {
+            return Ok(await BookService.UpsertAsync(book));
         }
     }
 }

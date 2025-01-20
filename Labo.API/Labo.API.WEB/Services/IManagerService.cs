@@ -4,7 +4,7 @@ namespace Labo.API.WEB.Services
 {
     public interface IManagerService
     {
-        Task<bool> CreateAsync(Books book);
+        Task<bool> AddBookAsync(Books book);
         Task<bool> UpdateAsync(Books book);
         Task<bool> UpsertAsync(Books book);
         Task<bool> DeleteAsync(string id);

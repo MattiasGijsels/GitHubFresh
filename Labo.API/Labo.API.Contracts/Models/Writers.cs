@@ -16,6 +16,6 @@ namespace Labo.API.Contracts.Models
         [StringLength(50)]
         public string LastName { get; set; }
 
-        public Writers() { }
+        public Writers() {  }
     }
 }

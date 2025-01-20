@@ -7,23 +7,22 @@ using Examen.Advanced.Csharp.Database.Repositories;
 namespace Labo.API.WEB.Services
 {
     public class ManagerService : IManagerService
-
-        
+       
     {
         IRepoBooks Repo { get; init; } = default!;
         public ManagerService(IRepoBooks repo)
         {
             Repo = repo;
         }
-
-        Task<bool> IManagerService.CreateAsync(Books book)
+        async Task<bool> IManagerService.AddBookAsync(Books book)
         {
-            throw new NotImplementedException();
+            await Repo.AddBookAsync(book);
+            return true;
         }
-
-        Task<bool> IManagerService.DeleteAsync(string id)
+        async Task<bool> IManagerService.DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            await Repo.DeleteBooksAsync(id);
+            return true;
         }
 
         async Task<IEnumerable<Books>> IManagerService.FilterAsync(string? id, string? BookTitle, string? GenreName, string? FirstName, string? LastName)
@@ -36,9 +35,9 @@ namespace Labo.API.WEB.Services
              return await Repo.FindBookAsync(BookTitle);
         }
 
-        Task<IEnumerable<Books>> IManagerService.GetAllAsync()
+        async Task<IEnumerable<Books>> IManagerService.GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await Repo.GetAllAsync();
         }
 
         Task<Books?> IManagerService.GetByIdAsync(string id)
@@ -46,14 +45,14 @@ namespace Labo.API.WEB.Services
             throw new NotImplementedException();
         }
 
-        Task<bool> IManagerService.UpdateAsync(Books book)
+        async Task<bool> IManagerService.UpdateAsync(Books book)
         {
-            throw new NotImplementedException();
+            return await Repo.UpdateAsync(book);
         }
 
-        Task<bool> IManagerService.UpsertAsync(Books book)
+        async Task<bool> IManagerService.UpsertAsync(Books book)
         {
-            throw new NotImplementedException();
+            return await Repo.UpsertAsync(book);
         }
     }
 }
