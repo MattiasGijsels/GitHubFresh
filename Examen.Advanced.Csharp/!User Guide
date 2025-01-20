@@ -1,0 +1,79 @@
+Hello User
+----------
+
+This document outlines the usage of my CLI tool and captures valuable lessons learned throughout the project.
+While some of the implemented solutions were necessary to meet deadlines, they would be approached differently in a more thorough and sustainable manner.
+
+Made the Postalcode and NisCode strings where they could have been ints. Made the default country Belgium, not super future proof. Next time I build something like this I would like let the user provide the location for the csv file. For this exercise I presumed our csv data is clean and fully complete. For most of the classes the error handling and data validation is quite basic, would like to improve on this in the future. I would also like to try to adhere more to the DRY principle.
+
+Here are some functions that were new to me:
+
+- SaveChangesAsync(): This method asynchronously saves all pending changes to the database.Automatically detects any changes made to entities.
+
+- FindAsync(id): This method asynchronously searches for the Person entity with the matching id in the database.
+
+- FirstOrDefaultAsync(): This method asynchronously searches for the first Person object that satisfies the given condition.
+
+- ThenInclude(a => a.ZipCode): This further includes the ZipCode property of the Address object, 
+  improve performance by eagerly loading related entities, avoiding multiple database round trips.
+
+I also took the opportunity to use the kanban board provided by GitHub
+
+BOARD : https://github.com/users/MattiasGijsels/projects/1/views/1
+
+
+GuideLines using the cli:
+-------------------------
+
+-I also gave 10 Person the same postalcode: 2018 and the city name of Antwerpen 	
+
+- all the names issued to the seed data and dummy data
+
+FirstName	LastName
+	
+Alice		Johnson              
+Lois		Price
+Elle		Ementary
+Gail		Forcewind
+Mark		Mywords
+Holly		Wood
+Justin		Time
+Pat		Myback
+John		Doe
+James		Wilson
+Imma		Pigg
+Sophia		Anderson
+Tim		Buktu
+Michael		Brown
+Sue		Permarket
+Johnny		Doe
+Chris		Pi. Bacon
+Frank		N. Stein
+Phil		Harmonic
+Carrie		Oaky
+Sarah		Jones
+Ella		Vator
+David		Lee
+Gus		Tavo
+Paige		Turner
+Bea		Positive
+Olivia		Moore
+Minnie		Van
+Anitta		Bath
+Barb		Dwyer
+Al		Dente
+Ima		Goner
+Jane		Smith
+Lukas		Warm
+Justin		Time
+Al		Beback
+Anitas		Bath
+Willy		Power
+Doug		Graves
+Jannine		Doe
+Daniel		Taylor
+Emily		Davis
+Chris		P. Bacon
+Barry		Caden
+Harry		Azcrack
+William		Power
