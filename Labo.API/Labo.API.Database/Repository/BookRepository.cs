@@ -26,74 +26,75 @@ namespace Examen.Advanced.Csharp.Database.Repositories
 
         public async Task<bool> AddBookAsync(Books book)
         {
+            #region
             //if (book == null)
             //{
             //    return false; // Or throw an exception
             //}
 
-            var existingBook = await _context.Books
-                .Where(b => b.Id == book.Id).AsNoTracking().SingleOrDefaultAsync();//move to services
+            //var existingBook = await _context.Books
+            //    .Where(b => b.Id == book.Id).AsNoTracking().SingleOrDefaultAsync();//move to services
 
-            if (existingBook != null)
-            {
-                // Book with the same GUID already exists
-                return false;
-            }
+            //if (existingBook != null)
+            //{
+            //    // Book with the same GUID already exists
+            //    return false;
+            //}
 
-            // If the book's GUID is not set, generate a new one
-            if (string.IsNullOrWhiteSpace(book.Id))
-            {
-                book.Id = Guid.NewGuid().ToString();
-            }
+            //// If the book's GUID is not set, generate a new one
+            //if (string.IsNullOrWhiteSpace(book.Id))
+            //{
+            //    book.Id = Guid.NewGuid().ToString();
+            //}
 
-            // Data Validation 
-            if (string.IsNullOrEmpty(book.BookTitle))
-            {
-                // Handle missing BookTitle 
-                throw new ArgumentException("BookTitle cannot be null or empty.");
-            }
+            //// Data Validation 
+            //if (string.IsNullOrEmpty(book.BookTitle))
+            //{
+            //    // Handle missing BookTitle 
+            //    throw new ArgumentException("BookTitle cannot be null or empty.");
+            //}
 
-            // Ensure Genre data is set
-            if (!string.IsNullOrEmpty(book.Genre.GenreName))
-            {
-                var existingGenre = await _context.Genre
-                    .FirstOrDefaultAsync(g => g.GenreName == book.Genre.GenreName);
+            //// Ensure Genre data is set
+            //if (!string.IsNullOrEmpty(book.Genre.GenreName))
+            //{
+            //    var existingGenre = await _context.Genre
+            //        .FirstOrDefaultAsync(g => g.GenreName == book.Genre.GenreName);
 
-                if (existingGenre != null)
-                {
-                    book.Genre = existingGenre;
-                }
-                else
-                {
-                    await _context.Genre.AddAsync(book.Genre);
-                }
-            }
-            else
-            {
-                book.Genre.GenreName = "Unknown"; 
-            }
+            //    if (existingGenre != null)
+            //    {
+            //        book.Genre = existingGenre;
+            //    }
+            //    else
+            //    {
+            //        await _context.Genre.AddAsync(book.Genre);
+            //    }
+            //}
+            //else
+            //{
+            //    book.Genre.GenreName = "Unknown";
+            //}
 
-            // Checking Writer data is set
-            if (!string.IsNullOrEmpty(book.Writer.FirstName) && !string.IsNullOrEmpty(book.Writer.LastName))
-            {
-                var existingWriter = await _context.Writers
-                    .FirstOrDefaultAsync(w => w.FirstName == book.Writer.FirstName && w.LastName == book.Writer.LastName);
+            //// Checking Writer data is set
+            //if (!string.IsNullOrEmpty(book.Writer.FirstName) && !string.IsNullOrEmpty(book.Writer.LastName))
+            //{
+            //    var existingWriter = await _context.Writers
+            //        .FirstOrDefaultAsync(w => w.FirstName == book.Writer.FirstName && w.LastName == book.Writer.LastName);
 
-                if (existingWriter != null)
-                {
-                    book.Writer = existingWriter;
-                }
-                else
-                {
-                    await _context.Writers.AddAsync(book.Writer);
-                }
-            }
-            else
-            {
-                book.Writer.FirstName = "Unknown";
-                book.Writer.LastName = "Unknown"; 
-            }
-
+            //    if (existingWriter != null)
+            //    {
+            //        book.Writer = existingWriter;
+            //    }
+            //    else
+            //    {
+            //        await _context.Writers.AddAsync(book.Writer);
+            //    }
+            //}
+            //else
+            //{
+            //    book.Writer.FirstName = "Unknown";
+            //    book.Writer.LastName = "Unknown";
+            //}
+            #endregion
             await _context.Books.AddAsync(book);
             await _context.SaveChangesAsync();
 
@@ -207,19 +208,19 @@ namespace Examen.Advanced.Csharp.Database.Repositories
 
             return await query.ToListAsync();
         }
-        public async Task<bool> UpsertAsync(Books book)
-        {
-            if (await AddBookAsync(book) == false)
-            {
-                return await UpdateAsync(book);
-            }
-            return true;
-        }
+        //public async Task<bool> UpsertAsync(Books book)//re-insert this one in the manager service
+        //{
+        //    //if (await AddBookAsync(book) == false)
+        //    //{
+        //    //    return await UpdateAsync(book);
+        //    //}
+        //    //return true;
+        //}
         public async Task<bool> UpdateAsync(Books book)
         {
             if (await _context.Books.Where(d=>d.Id == book.Id).AsNoTracking().FirstOrDefaultAsync() != null)
             { 
-                //_context.Attach(book); 
+
                 _context.Books.Update(book);
                 return await _context.SaveChangesAsync()>0;
             }
