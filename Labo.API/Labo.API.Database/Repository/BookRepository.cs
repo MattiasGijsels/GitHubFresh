@@ -146,14 +146,23 @@ namespace Examen.Advanced.Csharp.Database.Repositories
         // Soft delete a book
         public async Task<bool> DeleteBooksAsync(string id)
         {
-            var BookId = await _context.Books.FindAsync(id);
-            if (BookId != null)
+            // Find the book by ID
+            var book = await _context.Books.FindAsync(id);
+
+            if (book == null || book.IsDeleted)
             {
-                _context.Books.Remove(BookId);
-                return await _context.SaveChangesAsync() > 0;
+                // Book not found or already soft-deleted
+                return false;
             }
-            return false;
+
+            // Mark the book as deleted
+            book.IsDeleted = true;
+
+            // Update the book in the database
+            _context.Books.Update(book);
+            return await _context.SaveChangesAsync() > 0;
         }
+
         public async Task ModifyBookAsync(string title)
         {
             var book = await _context.Books

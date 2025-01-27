@@ -129,9 +129,23 @@ namespace Labo.API.WEB.Services
             }
             
         }
-        Task<bool> IManagerService.DeleteAsync(string id)
+        async Task<bool> IManagerService.DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentException("Book ID cannot be null or empty.");
+            }
+
+            var success = await _repo.DeleteBooksAsync(id);
+
+            if (!success)
+            {
+                // Return false if the book was not found or couldn't be soft-deleted
+                return false;
+            }
+
+            // Return true if the deletion was successful
+            return true;
         }
 
         async Task<bool> BookExists(Books book)
