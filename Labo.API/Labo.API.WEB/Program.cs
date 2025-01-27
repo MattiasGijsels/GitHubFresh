@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore.Design;
 using Examen.Advanced.Csharp.Database.Repositories;
 using Labo.API.Database.Context;
@@ -16,7 +15,7 @@ namespace Labo.API.WEB
 
             builder.Services.AddDbContext<BooksDbContext>(options =>
                 options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BooksDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
-
+            //gebruik config file
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
