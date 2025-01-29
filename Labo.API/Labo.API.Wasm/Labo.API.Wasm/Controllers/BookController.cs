@@ -17,5 +17,18 @@ namespace Labo.API.Wasm.Controllers
         {
             return Ok(await BookService.GetAllAsync());
         }
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<Books>>> FilterBooks(
+
+            [FromQuery] string? id = null,
+            [FromQuery] string? BookTitle = null,
+            [FromQuery] string? GenreName = null,
+            [FromQuery] string? FirstName = null,
+            [FromQuery] string? LastName = null
+            )
+        {
+            return Ok(await BookService.FilterAsync(id, BookTitle, GenreName, FirstName, LastName));
+
+        }
     }
 }

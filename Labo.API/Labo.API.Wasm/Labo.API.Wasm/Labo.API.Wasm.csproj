@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Labo.API.Contracts\Labo.API.Contracts.csproj" />
     <ProjectReference Include="..\..\Labo.API.Database\Labo.API.Database.csproj" />
+    <ProjectReference Include="..\..\Labo.API.Wasm.Shared\Labo.API.Wasm.Shared.csproj" />
     <ProjectReference Include="..\..\Labo.API.WEB\Labo.API.WEB.csproj" />
     <ProjectReference Include="..\Labo.API.Wasm.Client\Labo.API.Wasm.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.12" />
