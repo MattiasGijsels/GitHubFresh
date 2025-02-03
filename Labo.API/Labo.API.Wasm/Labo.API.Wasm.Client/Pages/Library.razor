@@ -2,6 +2,7 @@
 
 <h3>Library</h3>
 
+<input @bind="SearchQuery" @oninput="OnSearchChanged" class="form-control mb-3" placeholder="Search books..." />
 
 @if (Books == null)
 {
