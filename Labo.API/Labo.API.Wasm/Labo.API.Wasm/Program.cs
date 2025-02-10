@@ -4,8 +4,9 @@ using Microsoft.EntityFrameworkCore.Design;
 using Examen.Advanced.Csharp.Database.Repositories;
 using Labo.API.Database.Context;
 using Labo.API.Database.DbSeeder;
-using Labo.API.WEB.Services;
 using Microsoft.EntityFrameworkCore;
+using Labo.API.Wasm.Shared;
+using Labo.API.Wasm.Services;
 
 namespace Labo.API.Wasm
 {

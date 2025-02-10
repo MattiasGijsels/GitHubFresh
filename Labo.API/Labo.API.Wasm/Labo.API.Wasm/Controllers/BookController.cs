@@ -1,6 +1,7 @@
-﻿using Labo.API.WEB.Services;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Labo.API.Contracts.Models;
+using Labo.API.Wasm.Shared;
 
 namespace Labo.API.Wasm.Controllers
 {

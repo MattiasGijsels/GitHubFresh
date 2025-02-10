@@ -16,8 +16,8 @@ namespace Labo.API.Wasm.Client.Pages
         private List<string> Genre { get; set; } = new();
         private string SearchWriterQuery { get; set; } = "";
         private string SearchBookQuery { get; set; } = "";
-        private string SelectedGenre { get; set; } = "";
-
+        private string? SelectedGenre { get; set; } = null;
+        bool _genreListIsOpen = false;
         protected override async Task OnInitializedAsync()
         {
             await LoadGenres();
@@ -37,15 +37,38 @@ namespace Labo.API.Wasm.Client.Pages
                 string.IsNullOrWhiteSpace(SearchBookQuery) ? null : SearchBookQuery,
                 string.IsNullOrWhiteSpace(SelectedGenre) ? null : SelectedGenre,
                 string.IsNullOrWhiteSpace(SearchWriterQuery) ? null : SearchWriterQuery,
-                string.IsNullOrWhiteSpace(SearchWriterQuery) ? null : SearchWriterQuery
+                null
             );
 
             StateHasChanged();
         }
 
-        private async Task OnSearchChanged(ChangeEventArgs e)
+        private async Task OnSearchChanged(ChangeEventArgs e, string field)
         {
-            await LoadBooks(); // Refresh books based on search inputs
+            if (field == "BookTitle")
+                SearchBookQuery = e.Value?.ToString() ?? "";
+            else if (field == "Writer")
+                SearchWriterQuery = e.Value?.ToString() ?? "";
+
+            await LoadBooks();
         }
+        private async Task OnGenreChanged(ChangeEventArgs e)
+        {
+            SelectedGenre = e.Value?.ToString() ?? "";
+            await LoadBooks();
+        }
+        void OnToggleOpen() => _genreListIsOpen = !_genreListIsOpen;
+        private void OnGenreClicked() {
+
+            var genre = SelectedGenre;
+        }
+        private async Task OnGenreSelected(string? genre)
+        {
+            //SelectedGenre = e.Value?.ToString() ?? "";
+            SelectedGenre=genre;
+            _genreListIsOpen=false;
+            await LoadBooks();
+        }
+
     }
 }

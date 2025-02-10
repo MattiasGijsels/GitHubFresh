@@ -8,12 +8,10 @@ namespace Labo.API.Wasm.Services
     public class ManagerService: IManagerService
     {
         private readonly IRepoBooks _repo;
-        private readonly BooksDbContext _context;
 
         public ManagerService(IRepoBooks repo, BooksDbContext context)
         {
             _repo = repo;
-            _context = context;
         }
 
         async Task<IEnumerable<Books>> IManagerService.GetAllAsync()

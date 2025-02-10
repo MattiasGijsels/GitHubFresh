@@ -21,7 +21,7 @@ namespace Labo.API.Wasm.Client.Services
         //}//how tf do I get this to work
         async Task<IEnumerable<Books>> IManagerService.FilterAsync(string? id, string? BookTitle, string? GenreName, string? FirstName, string? LastName)
       {
-            var uriBuilder = new UriBuilder("api/Book"); // Replace with your API base URL
+            var uriBuilder = new UriBuilder("api/Book/filter"); // Replace with your API base URL
 
             if (!string.IsNullOrEmpty(id))
             {

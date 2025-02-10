@@ -3,21 +3,34 @@
 <h3>Library</h3>
 
 <!-- Search by Writer -->
-<input @bind="SearchWriterQuery" @oninput="OnSearchChanged" class="form-control mb-3" placeholder="Search by writer..." />
+<input @bind="SearchWriterQuery" @oninput="OnGenreChanged" class="form-control mb-3" placeholder="Search by writer..." />
 
 <!-- Search by Book Title -->
-<input @bind="SearchBookQuery" @oninput="OnSearchChanged" class="form-control mb-3" placeholder="Search by book title..." />
+<input @bind="SearchBookQuery" @oninput="OnGenreChanged" class="form-control mb-3" placeholder="Search by book title..." />
 
 <!-- Dropdown to Filter by Genre -->
-<select @bind="SelectedGenre" @bind:event="onchange" class="form-control mb-3">
+@* <select  @onclick="OnGenreClicked"  class="form-control mb-3">
 
     <option value="">All Genres</option>
     @foreach (var genre in Genre)
     {
-        <option value="@genre">@genre</option>
+        <option @onchange="@(async() => await OnGenreSelected(@genre))" value="@genre">@genre</option>
     }
 </select>
-
+ *@
+<div class="selectionbox">
+    <h5 @onclick="OnToggleOpen">@(SelectedGenre ?? "All Genres")</h5>
+    @if (_genreListIsOpen)
+    {
+        <ul>
+            <li @onclick="@(async() => await OnGenreSelected(null))">All Genres</li>
+            @foreach (var genre in Genre)
+            {
+                <li @onclick="@(async() => await OnGenreSelected(genre))">@genre</li>
+            }
+        </ul>
+    }
+</div>
 @if (Books == null)
 {
     <p><em>Loading...</em></p>
