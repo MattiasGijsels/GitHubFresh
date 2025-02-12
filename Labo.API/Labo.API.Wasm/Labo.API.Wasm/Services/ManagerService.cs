@@ -23,5 +23,9 @@ namespace Labo.API.Wasm.Services
             return await _repo.FilterAsync(id, BookTitle, GenreName, FirstName, LastName);
         }
 
+        public async Task<IEnumerable<Books>> FindAsync(string data)
+        {
+            return await _repo.FindBookAsync(data);
+        }
     }
 }

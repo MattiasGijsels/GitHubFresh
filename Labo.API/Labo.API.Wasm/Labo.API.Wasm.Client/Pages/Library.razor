@@ -2,11 +2,10 @@
 
 <h3>Library</h3>
 
-<!-- Search by Writer -->
-<input @bind="SearchWriterQuery" @oninput="OnGenreChanged" class="form-control mb-3" placeholder="Search by writer..." />
+@* search writer *@
+<input @bind="SearchQuery" @oninput="@(e => OnSearchChanged(e))" class="form-control mb-3" placeholder="Search by writer..." />
 
-<!-- Search by Book Title -->
-<input @bind="SearchBookQuery" @oninput="OnGenreChanged" class="form-control mb-3" placeholder="Search by book title..." />
+@* search booktitle *@
 
 <!-- Dropdown to Filter by Genre -->
 @* <select  @onclick="OnGenreClicked"  class="form-control mb-3">

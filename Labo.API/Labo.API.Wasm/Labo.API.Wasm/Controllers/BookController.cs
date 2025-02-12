@@ -14,7 +14,7 @@ namespace Labo.API.Wasm.Controllers
         { BookService = service; }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Books>>> GetBooks()
+        public async Task<ActionResult<IEnumerable<Books>>> GetBooks()//restrict no searchterm possibilty
         {
             return Ok(await BookService.GetAllAsync());
         }
@@ -28,7 +28,13 @@ namespace Labo.API.Wasm.Controllers
             [FromQuery] string? LastName = null
             )
         {
-            return Ok(await BookService.FilterAsync(id, BookTitle, GenreName, FirstName, LastName));
+            return Ok(await BookService.FilterAsync(id, BookTitle, GenreName, FirstName, LastName));//restrict no searchterm possibilty
+
+        }
+        [HttpGet("find/{data}")]
+        public async Task<ActionResult<IEnumerable<Books>>> FindBooks(string data)
+        {
+            return Ok(await BookService.FindAsync(data));
 
         }
     }

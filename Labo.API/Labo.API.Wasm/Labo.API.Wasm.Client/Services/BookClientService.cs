@@ -58,6 +58,14 @@ namespace Labo.API.Wasm.Client.Services
             }
         }
 
+        public async Task<IEnumerable<Books>> FindAsync(string data)
+        {
+            if (string.IsNullOrWhiteSpace(data))
+                return [];
+            return await Http.GetFromJsonAsync<IEnumerable<Books>>($"api/Book/find/{data}") ?? [];
+        }
+
+
         // Helper extension method (add to a suitable class)
     }
     public static class UriExtensions

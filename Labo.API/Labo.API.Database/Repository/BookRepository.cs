@@ -176,17 +176,17 @@ namespace Examen.Advanced.Csharp.Database.Repositories
                 await _context.SaveChangesAsync();
             }
         }
-        public async Task<List<Books>> FindBookAsync(string BookTitle)
-        {
-            var query = _context.Books.AsQueryable();
-            if (!string.IsNullOrEmpty(BookTitle))
-            {
-                query = query.Where(o => o.BookTitle.ToLower().Contains(BookTitle.ToLower()));
-            }
+        //public async Task<List<Books>> FindBookAsync(string BookTitle)
+        //{
+        //    var query = _context.Books.AsQueryable();
+        //    if (!string.IsNullOrEmpty(BookTitle))
+        //    {
+        //        query = query.Where(o => o.BookTitle.ToLower().Contains(BookTitle.ToLower()));
+        //    }
 
-            return await query.ToListAsync();
+        //    return await query.ToListAsync();
 
-        }
+        //}
         public async Task<IEnumerable<Books>> FilterAsync(string? id, string? BookTitle, string? GenreName, string? FirstName, string? LastName)
         {
             var query = _context.Books
@@ -236,6 +236,26 @@ namespace Examen.Advanced.Csharp.Database.Repositories
             return false;
         }
 
+        public async Task<IEnumerable<Books>> FindBookAsync(string data)
+        {
+            {
+               var invariant = data.ToLower();
+                var query = _context.Books.AsQueryable();
+                if (!string.IsNullOrEmpty(data))
+                {
+                    query = query.Where(o => o.BookTitle.ToLower().Contains(invariant)
+                        ||o.Genre.GenreName.ToLower().Contains(invariant)
+                        ||o.Writer.FirstName.ToLower().Contains(invariant)
+                        ||o.Writer.LastName.ToLower().Contains(invariant)
+                        ||o.Writer.LastName.ToLower().Contains(invariant)
+                        ||o.Id == data//add include for writer and genres
+                    );
+                }
+
+                return await query.ToListAsync();
+
+            }
+        }
     }
 }
 

@@ -15,7 +15,7 @@ namespace Labo.API.Wasm.Client.Pages
         private IEnumerable<Books>? Books { get; set; } = null;
         private List<string> Genre { get; set; } = new();
         private string SearchWriterQuery { get; set; } = "";
-        private string SearchBookQuery { get; set; } = "";
+        private string SearchQuery { get; set; } = "";
         private string? SelectedGenre { get; set; } = null;
         bool _genreListIsOpen = false;
         protected override async Task OnInitializedAsync()
@@ -32,23 +32,15 @@ namespace Labo.API.Wasm.Client.Pages
 
         private async Task LoadBooks()
         {
-            Books = await BookService.FilterAsync(
-                null,
-                string.IsNullOrWhiteSpace(SearchBookQuery) ? null : SearchBookQuery,
-                string.IsNullOrWhiteSpace(SelectedGenre) ? null : SelectedGenre,
-                string.IsNullOrWhiteSpace(SearchWriterQuery) ? null : SearchWriterQuery,
-                null
-            );
+            Books = await BookService.FindAsync(SearchQuery);
 
             StateHasChanged();
         }
 
-        private async Task OnSearchChanged(ChangeEventArgs e, string field)
+        private async Task OnSearchChanged(ChangeEventArgs e)
         {
-            if (field == "BookTitle")
-                SearchBookQuery = e.Value?.ToString() ?? "";
-            else if (field == "Writer")
-                SearchWriterQuery = e.Value?.ToString() ?? "";
+                SearchQuery = e.Value?.ToString() ?? "";
+
 
             await LoadBooks();
         }
