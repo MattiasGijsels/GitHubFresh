@@ -240,7 +240,10 @@ namespace Examen.Advanced.Csharp.Database.Repositories
         {
             {
                var invariant = data.ToLower();
-                var query = _context.Books.AsQueryable();
+                var query = _context.Books
+                    .Include(b => b.Genre)
+                    .Include(b => b.Writer)
+                    .AsQueryable();
                 if (!string.IsNullOrEmpty(data))
                 {
                     query = query.Where(o => o.BookTitle.ToLower().Contains(invariant)
@@ -248,7 +251,7 @@ namespace Examen.Advanced.Csharp.Database.Repositories
                         ||o.Writer.FirstName.ToLower().Contains(invariant)
                         ||o.Writer.LastName.ToLower().Contains(invariant)
                         ||o.Writer.LastName.ToLower().Contains(invariant)
-                        ||o.Id == data//add include for writer and genres
+                        ||o.Id.ToString() == data//add include for writer and genres
                     );
                 }
 

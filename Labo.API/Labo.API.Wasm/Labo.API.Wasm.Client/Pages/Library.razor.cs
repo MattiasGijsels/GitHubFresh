@@ -18,10 +18,13 @@ namespace Labo.API.Wasm.Client.Pages
         private string SearchQuery { get; set; } = "";
         private string? SelectedGenre { get; set; } = null;
         bool _genreListIsOpen = false;
+
+
         protected override async Task OnInitializedAsync()
         {
             await LoadGenres();
             await LoadBooks();
+            Books = await BookService.GetAllAsync();
         }
 
         private async Task LoadGenres()

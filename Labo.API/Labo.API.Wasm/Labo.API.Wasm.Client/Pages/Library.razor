@@ -3,7 +3,7 @@
 <h3>Library</h3>
 
 @* search writer *@
-<input @bind="SearchQuery" @oninput="@(e => OnSearchChanged(e))" class="form-control mb-3" placeholder="Search by writer..." />
+<input @bind="SearchQuery" @oninput="@(e => OnSearchChanged(e))" class="form-control mb-3" placeholder="Search by writer, booktitle or genre..." />
 
 @* search booktitle *@
 
@@ -17,7 +17,7 @@
     }
 </select>
  *@
-<div class="selectionbox">
+@* <div class="selectionbox">
     <h5 @onclick="OnToggleOpen">@(SelectedGenre ?? "All Genres")</h5>
     @if (_genreListIsOpen)
     {
@@ -25,11 +25,11 @@
             <li @onclick="@(async() => await OnGenreSelected(null))">All Genres</li>
             @foreach (var genre in Genre)
             {
-                <li @onclick="@(async() => await OnGenreSelected(genre))">@genre</li>
+             z   <li @onclick="@(async() => await OnGenreSelected(genre))">@genre</li>
             }
         </ul>
     }
-</div>
+</div> *@
 @if (Books == null)
 {
     <p><em>Loading...</em></p>
