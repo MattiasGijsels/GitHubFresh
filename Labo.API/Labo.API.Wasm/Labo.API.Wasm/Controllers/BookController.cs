@@ -6,7 +6,7 @@ using Labo.API.Wasm.Shared;
 namespace Labo.API.Wasm.Controllers
 {
     [ApiController]
-    [Route ("api/[controller]")]
+    [Route("api/[controller]")]
     public class BookController : ControllerBase
     {
         IManagerService BookService { get; init; } = default!;
@@ -32,10 +32,15 @@ namespace Labo.API.Wasm.Controllers
 
         }
         [HttpGet("find/{data}")]
-        public async Task<ActionResult<IEnumerable<Books>>> FindBooks(string data)
+        public async Task<ActionResult<Books>> FindBooks(string data)
         {
             return Ok(await BookService.FindAsync(data));
-
         }
+        [HttpGet("Get/{BookId}")]
+        public async Task<ActionResult<Books>> GetBookId(string BookId)
+        {
+            return Ok(await BookService.GetByIdAsync(BookId));
+        }
+
     }
 }

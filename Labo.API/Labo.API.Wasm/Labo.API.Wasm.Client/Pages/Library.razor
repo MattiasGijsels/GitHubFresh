@@ -36,25 +36,30 @@
 }
 else
 {
-    <table class="table">
-        <thead>
+   <table class="table">
+    <thead>
+        <tr>
+            <th>Author First Name</th>
+            <th>Author Last Name</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Actions</th> <!-- New column for buttons -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Books)
+        {
             <tr>
-                <th>Author First Name</th>
-                <th>Author Last Name</th>
-                <th>Title</th>
-                <th>Genre</th>
+                <td>@book.Writer.FirstName</td>
+                <td>@book.Writer.LastName</td>
+                <td><i>@book.BookTitle</i></td>
+                <td>@book.Genre.GenreName</td>
+                <td>
+                    <button class="btn btn-warning" @onclick="() => OnAdjustBook(book.Id)">Adjust</button>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var book in Books)
-            {
-                <tr>
-                    <td>@book.Writer.FirstName</td>
-                    <td>@book.Writer.LastName</td>
-                    <td><i>@book.BookTitle</i></td>
-                    <td>@book.Genre.GenreName</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
+
 }

@@ -11,7 +11,7 @@ namespace Labo.API.Wasm.Client.Services
         {
             Http = http;
         }
-        async Task<IEnumerable<Books>> IManagerService.GetAllAsync()
+        public async Task<IEnumerable<Books>> GetAllAsync()
         {
             return await Http.GetFromJsonAsync<IEnumerable<Books>>("api/Book")??[];
         }
@@ -19,7 +19,7 @@ namespace Labo.API.Wasm.Client.Services
         //{
         //    return await Http.GetFromJsonAsync<IEnumerable<Books>>(id, BookTitle, GenreName, FirstName, LastName) ?? [];
         //}//how tf do I get this to work
-        async Task<IEnumerable<Books>> IManagerService.FilterAsync(string? id, string? BookTitle, string? GenreName, string? FirstName, string? LastName)
+       public async Task<IEnumerable<Books>> FilterAsync(string? id, string? BookTitle, string? GenreName, string? FirstName, string? LastName)
       {
             var uriBuilder = new UriBuilder("api/Book/filter"); // Replace with your API base URL
 
@@ -63,6 +63,19 @@ namespace Labo.API.Wasm.Client.Services
             if (string.IsNullOrWhiteSpace(data))
                 return [];
             return await Http.GetFromJsonAsync<IEnumerable<Books>>($"api/Book/find/{data}") ?? [];
+        }
+
+        public async Task <Books?> GetByIdAsync(string BookId)
+        {
+            if (string.IsNullOrWhiteSpace(BookId))
+                return null;
+            return await Http.GetFromJsonAsync<Books>($"api/Book/Get/{BookId}\"");
+
+        }
+
+        Task IManagerService.UpdateAsync(Books book)
+        {
+            throw new NotImplementedException();
         }
 
 

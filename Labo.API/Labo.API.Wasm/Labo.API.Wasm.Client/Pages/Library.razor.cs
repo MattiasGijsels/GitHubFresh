@@ -1,6 +1,7 @@
 ﻿using Labo.API.Contracts.Models;
 using Labo.API.Wasm.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,10 @@ namespace Labo.API.Wasm.Client.Pages
     {
         [Inject]
         public IManagerService BookService { get; set; } = default!;
+
+        [Inject]
+        public NavigationManager Navigation { get; set; } = default!; 
+
 
         private IEnumerable<Books>? Books { get; set; } = null;
         private List<string> Genre { get; set; } = new();
@@ -25,6 +30,10 @@ namespace Labo.API.Wasm.Client.Pages
             await LoadGenres();
             await LoadBooks();
             Books = await BookService.GetAllAsync();
+        }
+        private async Task OnAdjustBook(string bookId)
+        {
+            Navigation.NavigateTo($"/EditBook/{bookId}"); // Navigate to the edit page
         }
 
         private async Task LoadGenres()
