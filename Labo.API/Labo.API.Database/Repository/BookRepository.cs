@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Labo.API.Contracts.Models;
 using Labo.API.Contracts.Shared;
 using Labo.API.Database.Context;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Examen.Advanced.Csharp.Database.Repositories
 {
@@ -258,6 +259,21 @@ namespace Examen.Advanced.Csharp.Database.Repositories
                 return await query.ToListAsync();
 
             }
+        }
+
+        public async Task<Books> GetByIdAsync(string bookId)
+        {
+            var books = 
+             await _context.Books
+                .Where(b => b.Id == bookId)
+                .Include(b => b.Genre)
+                .Include(b => b.Writer)
+                .FirstOrDefaultAsync(b => b.Id == bookId);
+
+            return books;
+
+
+
         }
     }
 }

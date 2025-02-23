@@ -28,9 +28,9 @@ namespace Labo.API.Wasm.Services
             return await _repo.FindBookAsync(data);
         }
 
-        public Task<Books?> GetByIdAsync(string bookId)
+        public async Task<Books?> GetByIdAsync(string bookId)
         {
-            throw new NotImplementedException();
+            return await _repo.GetByIdAsync(bookId);
         }
 
         public Task UpdateAsync(Books book)

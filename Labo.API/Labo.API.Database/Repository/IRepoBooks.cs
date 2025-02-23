@@ -16,5 +16,7 @@ namespace Examen.Advanced.Csharp.Database.Repositories
         Task <bool> DeleteBooksAsync(string id);      // Soft delete a book
         Task ModifyBookAsync(string title);            //modify a book
         Task<IEnumerable<Books>> FindBookAsync(string data);
+        Task<Books> GetByIdAsync(string bookId);
+        //make task getbyId
     }
 }
