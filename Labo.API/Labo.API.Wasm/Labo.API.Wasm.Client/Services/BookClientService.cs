@@ -69,7 +69,7 @@ namespace Labo.API.Wasm.Client.Services
         {
             if (string.IsNullOrWhiteSpace(BookId))
                 return null;
-            return await Http.GetFromJsonAsync<Books>($"api/Book/Get/{BookId}\"");
+            return await Http.GetFromJsonAsync<Books>($"api/Book/Get/{BookId}");
 
         }
 

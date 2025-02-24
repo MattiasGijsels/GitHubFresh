@@ -263,17 +263,14 @@ namespace Examen.Advanced.Csharp.Database.Repositories
 
         public async Task<Books> GetByIdAsync(string bookId)
         {
-            var books = 
+            var book = 
              await _context.Books
                 .Where(b => b.Id == bookId)
                 .Include(b => b.Genre)
                 .Include(b => b.Writer)
                 .FirstOrDefaultAsync(b => b.Id == bookId);
 
-            return books;
-
-
-
+            return book;
         }
     }
 }
